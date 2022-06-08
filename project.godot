@@ -1,0 +1,46 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+[application]
+
+config/name="MicroTimer"
+run/main_scene="res://MicroTimer.tscn"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="MicroTimer"
+boot_splash/image="res://assets/timer_FILL0_wght400_GRAD0_opsz48.png"
+config/icon="res://assets/timer_FILL0_wght400_GRAD0_opsz48.png"
+
+[debug]
+
+gdscript/warnings/integer_division=false
+
+[display]
+
+window/size/width=190
+window/size/height=98
+window/size/resizable=false
+window/size/borderless=true
+window/size/always_on_top=true
+window/dpi/allow_hidpi=true
+window/per_pixel_transparency/allowed=true
+window/per_pixel_transparency/enabled=true
+window/energy_saving/keep_screen_on=false
+
+[physics]
+
+common/physics_fps=1
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
+quality/intended_usage/framebuffer_allocation=0
+quality/intended_usage/framebuffer_allocation.mobile=0
+environment/default_environment="res://default_env.tres"
