@@ -1,6 +1,7 @@
 extends HBoxContainer
 
-const USER_SETTINGS_PATH = "user://settings.json"
+const USER_SETTINGS_PATH := "user://settings.json"
+const NO_TASK_LABEL := "No task"
 
 
 var start_time: int
@@ -13,7 +14,9 @@ var settings: Dictionary
 onready var hour_label := $Container/Timer/Hour
 onready var minute_label := $Container/Timer/Minute
 onready var second_label := $Container/Timer/Second
-onready var stop_button := $Container/Controls/StopButton
+onready var start_button := $Container/Controls/StartButton
+onready var pause_button := $Container/Controls/PauseButton
+onready var complete_button := $Container/Controls/CompleteButton
 
 
 func _ready():
@@ -107,14 +110,11 @@ func _on_CloseButton_pressed():
 func _on_StartButton_pressed():
 	is_running = true
 	start_time = OS.get_ticks_msec()
-	displayed_time = 0
-	display_time(0)
-	stop_button.disabled = false
-
-
-func _on_StopButton_pressed():
-	is_running = false
-	stop_button.disabled = true
+#	displayed_time = 0
+#	display_time(0)
+	pause_button.disabled = false
+	complete_button.disabled = false
+	start_button.disabled = true
 
 
 func _on_MicroTimer_gui_input(event):
@@ -123,3 +123,18 @@ func _on_MicroTimer_gui_input(event):
 			end_drag()
 		else:
 			start_drag(event.global_position)
+
+
+func _on_PauseButton_pressed():
+	is_running = false
+	pause_button.disabled = true
+	start_button.disabled = false
+
+
+func _on_CompleteButton_pressed():
+	displayed_time = 0
+	display_time(0)
+	is_running = false
+	pause_button.disabled = true
+	complete_button.disabled = true
+	start_button.disabled = false
