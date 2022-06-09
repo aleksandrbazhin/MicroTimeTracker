@@ -10,15 +10,15 @@ Need synchronization? - Use git
 
 Need time tracker? - Well, here it is. 
 
-The "Micro" time tracker parses tasks in your markdown files, recognizing a tiny subset of Markdown.
+The "Micro" time tracker parses tasks in your markdown files, recognizing a tiny subset of Markdown. It appends time spent on each task into those same tiles.
 
 ## Markdown subset syntax
 
-The following is recognized in a markdown task file. 
+The following is recognized in a Markdown task file. Tasks are from github format.
 ```
-\n# - task group
-\n[] - uncompleted task
-\n[x] - completed task
+"\n# " - task group (instead of \n there can be file start)
+"\n- [ ] " - uncompleted task
+"\n- [x] " - completed task
 **(hours:minutes:seconds)**\n - time spend on the task
 
 ```
@@ -31,3 +31,10 @@ It's supposed to be synced by git along with the main project, so every member s
 Pros: you don't lose your task history. You don't leave ide to check tasks.
 
 Cons: individual contributions are neither measured, nor time spent on one task by different members is added. Add it yourself while resolving merge conflicts, I guess.
+
+#### Tip:
+You can edit all markdown files with VSCode for example, there are some nice extensions for the github format previews (those checklists).
+
+- Markdown Preview Enhanced
+- GitHub Markdown Preview
+- Markdown Preview Github Styling
