@@ -14,9 +14,10 @@ config/name="MicroTimer"
 run/main_scene="res://MicroTimer.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="MicroTimer"
-boot_splash/image="res://assets/timer_FILL0_wght400_GRAD0_opsz48.png"
+run/low_processor_mode=true
+boot_splash/image="res://assets/timer64.png"
 boot_splash/fullsize=false
-config/icon="res://assets/timer48.png"
+config/icon="res://assets/timer64.png"
 config/windows_native_icon="res://assets/icon.ico"
 
 [debug]
