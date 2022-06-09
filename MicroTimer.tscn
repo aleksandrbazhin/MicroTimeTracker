@@ -83,6 +83,7 @@ margin_left = 4.0
 margin_right = 84.0
 margin_bottom = 36.0
 rect_min_size = Vector2( 80, 36 )
+focus_mode = 0
 text = "Go!"
 
 [node name="StopButton" type="Button" parent="Container/Controls"]
@@ -90,6 +91,7 @@ margin_left = 88.0
 margin_right = 168.0
 margin_bottom = 36.0
 rect_min_size = Vector2( 80, 36 )
+focus_mode = 0
 disabled = true
 text = "Stop"
 
@@ -119,6 +121,7 @@ margin_top = 2.0
 margin_right = -2.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 20, 0 )
+focus_mode = 0
 size_flags_horizontal = 8
 custom_styles/normal = SubResource( 1 )
 text = "×"

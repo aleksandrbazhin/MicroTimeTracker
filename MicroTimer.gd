@@ -18,6 +18,7 @@ onready var stop_button := $Container/Controls/StopButton
 
 func _ready():
 	get_tree().get_root().set_transparent_background(true)
+	OS.set_window_always_on_top(true)
 	start_time = OS.get_ticks_msec()
 	displayed_time = 0
 	load_settings()
