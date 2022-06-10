@@ -28,9 +28,14 @@ The following is recognized in a Markdown task file. Tasks are from github forma
 
 It's supposed to be synced by git along with the main project, so every member should better use different file with tasks, just to avoid merge conflicts.
 
-Pros: you don't lose your task history. You don't leave ide to check tasks.
+Pros: 
+- You don't leave ide to check tasks. (Don's get distracted by web interfaces)
+- You don't lose your task history. 
+- You can synchronize task statuses with Git along with your commits.
+- Yui can use folders with files task lists as can ban boards.
 
-Cons: individual contributions are neither measured, nor time spent on one task by different members is added. Add it yourself while resolving merge conflicts, I guess.
+Cons: 
+- Individual contributions are neither measured, nor time spent on one task by different members is added. You have to add it yourself while resolving merge conflicts, I guess.
 
 #### Tip:
 You can edit all markdown files with VSCode for example, there are some nice extensions for the github format previews (those checklists).

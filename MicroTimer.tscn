@@ -1,13 +1,16 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://MicroTimer.gd" type="Script" id=1]
-[ext_resource path="res://assets/Theme.tres" type="Theme" id=2]
+[ext_resource path="res://assets/MainTheme.tres" type="Theme" id=2]
 [ext_resource path="res://assets/pause.png" type="Texture" id=3]
 [ext_resource path="res://assets/done.png" type="Texture" id=4]
 [ext_resource path="res://assets/play_arrow.png" type="Texture" id=5]
 [ext_resource path="res://assets/FontStillBig.tres" type="DynamicFont" id=6]
 [ext_resource path="res://assets/ShareTechMono-Regular.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://assets/FontTooBig.tres" type="DynamicFont" id=8]
+[ext_resource path="res://TaskRow.tscn" type="PackedScene" id=9]
+[ext_resource path="res://assets/Load.png" type="Texture" id=10]
+[ext_resource path="res://assets/FileDialogTheme.tres" type="Theme" id=11]
 
 [sub_resource type="DynamicFont" id=2]
 size = 28
@@ -21,7 +24,6 @@ font_data = ExtResource( 7 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_vertical = 3
-theme = ExtResource( 2 )
 custom_constants/separation = 0
 script = ExtResource( 1 )
 
@@ -36,6 +38,7 @@ margin_right = 220.0
 margin_bottom = 43.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource( 2 )
 
 [node name="VBox" type="VBoxContainer" parent="TasksContainer"]
 margin_left = 4.0
@@ -44,118 +47,73 @@ margin_right = 216.0
 margin_bottom = 39.0
 size_flags_vertical = 3
 
-[node name="CurrentFolder" type="HBoxContainer" parent="TasksContainer/VBox"]
+[node name="CurrentFIle" type="HBoxContainer" parent="TasksContainer/VBox"]
 margin_right = 212.0
 margin_bottom = 31.0
 
-[node name="LineEdit" type="LineEdit" parent="TasksContainer/VBox/CurrentFolder"]
+[node name="FileName" type="Label" parent="TasksContainer/VBox/CurrentFIle"]
 margin_right = 130.0
 margin_bottom = 31.0
+mouse_filter = 1
+size_flags_horizontal = 3
+text = "Select file"
 align = 3
-max_length = 5
-editable = false
-placeholder_text = "Select file"
 
-[node name="SelectFileButton" type="Button" parent="TasksContainer/VBox/CurrentFolder"]
+[node name="SelectFileButton" type="Button" parent="TasksContainer/VBox/CurrentFIle"]
 margin_left = 134.0
 margin_right = 206.0
 margin_bottom = 31.0
-rect_min_size = Vector2( 72, 0 )
+rect_min_size = Vector2( 78, 28 )
+focus_mode = 0
 text = "Open"
+icon = ExtResource( 10 )
+
+[node name="HSeparator" type="HSeparator" parent="TasksContainer/VBox"]
+margin_right = 40.0
+margin_bottom = 4.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TasksContainer/VBox"]
 margin_top = 35.0
 margin_right = 212.0
 margin_bottom = 35.0
+mouse_filter = 1
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="Tasks" type="VBoxContainer" parent="TasksContainer/VBox/ScrollContainer"]
-margin_right = 72.0
-margin_bottom = 338.0
-custom_constants/separation = 10
+margin_right = 212.0
+margin_bottom = 342.0
+size_flags_horizontal = 3
+custom_constants/separation = 6
 
-[node name="Label" type="Label" parent="TasksContainer/VBox/ScrollContainer/Tasks"]
-margin_right = 72.0
-margin_bottom = 19.0
-text = "sdfsdfsd"
+[node name="TaskRow" parent="TasksContainer/VBox/ScrollContainer/Tasks" instance=ExtResource( 9 )]
 
-[node name="Label2" type="Label" parent="TasksContainer/VBox/ScrollContainer/Tasks"]
-margin_top = 29.0
-margin_right = 72.0
-margin_bottom = 48.0
-text = "sdfsdfsd"
+[node name="TaskRow2" parent="TasksContainer/VBox/ScrollContainer/Tasks" instance=ExtResource( 9 )]
 
-[node name="Label3" type="Label" parent="TasksContainer/VBox/ScrollContainer/Tasks"]
-margin_top = 58.0
-margin_right = 72.0
-margin_bottom = 77.0
-text = "sdfsdfsd"
+[node name="TaskRow3" parent="TasksContainer/VBox/ScrollContainer/Tasks" instance=ExtResource( 9 )]
 
-[node name="Label4" type="Label" parent="TasksContainer/VBox/ScrollContainer/Tasks"]
-margin_top = 87.0
-margin_right = 72.0
-margin_bottom = 106.0
-text = "sdfsdfsd"
+[node name="TaskRow4" parent="TasksContainer/VBox/ScrollContainer/Tasks" instance=ExtResource( 9 )]
 
-[node name="Label5" type="Label" parent="TasksContainer/VBox/ScrollContainer/Tasks"]
-margin_top = 116.0
-margin_right = 72.0
-margin_bottom = 135.0
-text = "sdfsdfsd"
+[node name="TaskRow5" parent="TasksContainer/VBox/ScrollContainer/Tasks" instance=ExtResource( 9 )]
 
-[node name="Label6" type="Label" parent="TasksContainer/VBox/ScrollContainer/Tasks"]
-margin_top = 145.0
-margin_right = 72.0
-margin_bottom = 164.0
-text = "sdfsdfsd"
+[node name="TaskRow6" parent="TasksContainer/VBox/ScrollContainer/Tasks" instance=ExtResource( 9 )]
 
-[node name="Label7" type="Label" parent="TasksContainer/VBox/ScrollContainer/Tasks"]
-margin_top = 174.0
-margin_right = 72.0
-margin_bottom = 193.0
-text = "sdfsdfsd"
+[node name="TaskRow7" parent="TasksContainer/VBox/ScrollContainer/Tasks" instance=ExtResource( 9 )]
 
-[node name="Label8" type="Label" parent="TasksContainer/VBox/ScrollContainer/Tasks"]
-margin_top = 203.0
-margin_right = 72.0
-margin_bottom = 222.0
-text = "sdfsdfsd"
+[node name="TaskRow8" parent="TasksContainer/VBox/ScrollContainer/Tasks" instance=ExtResource( 9 )]
 
-[node name="Label9" type="Label" parent="TasksContainer/VBox/ScrollContainer/Tasks"]
-margin_top = 232.0
-margin_right = 72.0
-margin_bottom = 251.0
-text = "sdfsdfsd"
+[node name="TaskRow9" parent="TasksContainer/VBox/ScrollContainer/Tasks" instance=ExtResource( 9 )]
 
-[node name="Label10" type="Label" parent="TasksContainer/VBox/ScrollContainer/Tasks"]
-margin_top = 261.0
-margin_right = 72.0
-margin_bottom = 280.0
-text = "sdfsdfsd"
+[node name="TaskRow10" parent="TasksContainer/VBox/ScrollContainer/Tasks" instance=ExtResource( 9 )]
 
-[node name="Label11" type="Label" parent="TasksContainer/VBox/ScrollContainer/Tasks"]
-margin_top = 290.0
-margin_right = 72.0
-margin_bottom = 309.0
-text = "sdfsdfsd"
+[node name="TaskRow11" parent="TasksContainer/VBox/ScrollContainer/Tasks" instance=ExtResource( 9 )]
 
-[node name="Label12" type="Label" parent="TasksContainer/VBox/ScrollContainer/Tasks"]
-margin_top = 319.0
-margin_right = 72.0
-margin_bottom = 338.0
-text = "sdfsdfsd"
-
-[node name="MarginContainer" type="MarginContainer" parent="TasksContainer"]
-visible = false
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 213.0
-margin_bottom = 40.0
+[node name="TaskRow12" parent="TasksContainer/VBox/ScrollContainer/Tasks" instance=ExtResource( 9 )]
 
 [node name="MinimizedContainer" type="HBoxContainer" parent="."]
 margin_right = 220.0
 margin_bottom = 143.0
+theme = ExtResource( 2 )
 
 [node name="VBox" type="VBoxContainer" parent="MinimizedContainer"]
 margin_right = 202.0
@@ -180,15 +138,17 @@ margin_left = 8.0
 margin_right = 44.0
 margin_bottom = 36.0
 rect_min_size = Vector2( 36, 36 )
+custom_fonts/font = ExtResource( 6 )
 text = ">"
 
 [node name="Label" type="Label" parent="MinimizedContainer/VBox/Header"]
 margin_left = 52.0
-margin_top = 4.0
-margin_right = 143.0
-margin_bottom = 32.0
-custom_fonts/font = ExtResource( 6 )
+margin_top = 8.0
+margin_right = 196.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 144, 0 )
 text = "No task"
+clip_text = true
 
 [node name="Timer" type="HBoxContainer" parent="MinimizedContainer/VBox"]
 margin_top = 46.0
@@ -276,6 +236,7 @@ margin_left = 4.0
 margin_right = 94.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 90, 36 )
+custom_fonts/font = ExtResource( 6 )
 text = "Go!"
 icon = ExtResource( 5 )
 align = 0
@@ -329,10 +290,14 @@ custom_styles/normal = SubResource( 1 )
 text = "×"
 
 [node name="FileDialog" type="FileDialog" parent="."]
-margin_right = 800.0
+margin_right = 780.0
 margin_bottom = 600.0
+rect_min_size = Vector2( 780, 600 )
+theme = ExtResource( 11 )
 popup_exclusive = true
 window_title = "Open a File"
+dialog_hide_on_ok = true
+dialog_autowrap = true
 mode = 0
 access = 2
 filters = PoolStringArray( "*.md ; Markdown files" )
@@ -340,10 +305,12 @@ current_dir = "/home/alexander/GodotProjects/MicroTimer"
 current_path = "/home/alexander/GodotProjects/MicroTimer/"
 
 [connection signal="gui_input" from="." to="." method="_on_MicroTimer_gui_input"]
-[connection signal="pressed" from="TasksContainer/VBox/CurrentFolder/SelectFileButton" to="." method="_on_SelectFileButton_pressed"]
+[connection signal="gui_input" from="TasksContainer" to="." method="_on_TasksContainer_gui_input"]
+[connection signal="pressed" from="TasksContainer/VBox/CurrentFIle/SelectFileButton" to="." method="_on_SelectFileButton_pressed"]
 [connection signal="pressed" from="MinimizedContainer/VBox/Header/TasksButton" to="." method="_on_TasksButton_pressed"]
 [connection signal="pressed" from="MinimizedContainer/VBox/Controls/StartButton" to="." method="_on_StartButton_pressed"]
 [connection signal="pressed" from="MinimizedContainer/VBox/Controls/PauseButton" to="." method="_on_PauseButton_pressed"]
 [connection signal="pressed" from="MinimizedContainer/VBox/Controls/CompleteButton" to="." method="_on_CompleteButton_pressed"]
 [connection signal="pressed" from="MinimizedContainer/Spacer/CloseButton" to="." method="_on_CloseButton_pressed"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_FileDialog_file_selected"]
 [connection signal="hide" from="FileDialog" to="." method="_on_FileDialog_hide"]

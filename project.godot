@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "HBoxContainer",
+"class": "TaskRow",
+"language": "GDScript",
+"path": "res://TaskRow.gd"
+} ]
+_global_script_class_icons={
+"TaskRow": ""
+}
+
 [application]
 
 config/name="MicroTimer"
