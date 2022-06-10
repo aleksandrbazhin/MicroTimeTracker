@@ -84,14 +84,22 @@ func apply_settings():
 		OS.window_position = str2var(settings["window_position"])
 	if settings.has("recent_file"):
 		set_task_file(settings["recent_file"])
-	set_task_file("")
-	if settings.has("recent_task"):
-		set_task(settings["recent_task"])
+#	set_task_file("")
+		if settings.has("recent_task"):
+			set_task(settings["recent_task"])
 
 
 func set_task(task_name: String):
 	active_task.text = task_name
 	save_settings()
+
+
+func set_task_from_node(task: TaskRow):
+	print(OS.get_ticks_msec())
+	set_task(task.task_name)
+	pause_start_time = OS.get_ticks_msec() - task.time_spent
+	display_time(task.time_spent)
+	displayed_time = 0
 
 
 func save_settings():
@@ -247,12 +255,12 @@ func parse_markdown(markdown: String) -> Array:
 			},
 			{
 				"name": "Task 66666666", 
-				"time_spent": 100000,
+				"time_spent": 36000000,
 				"completed": true
 			},
 			{
 				"name": "Task 707070707070", 
-				"time_spent": 100000,
+				"time_spent": 1000000,
 				"completed": true
 			}
 		]}
@@ -285,7 +293,7 @@ func create_task_row(task: Dictionary):
 	task_node.set_completed(task["completed"])
 	task_node.set_time_spent( task["time_spent"])
 	task_list.add_child(task_node)
-	task_node.connect("selected", self, "set_task", [task["name"]])
+	task_node.connect("selected", self, "set_task_from_node", [task_node])
 
 
 func _on_FileDialog_file_selected(path: String):

@@ -12,4 +12,4 @@
  - [ ] Use regex
  - [ ] Parse task blocks
  - [ ] Parse task 
- - [ ] Display list in UI
+ - [x] Display list in UI
