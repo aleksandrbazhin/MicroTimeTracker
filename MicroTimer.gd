@@ -6,6 +6,7 @@ const NO_TASK_LABEL := "No task"
 
 var start_time: int
 var displayed_time: int
+var pause_start_time: int = 0
 var is_running := false
 var is_dragging := false
 var drag_start_position: Vector2
@@ -103,20 +104,6 @@ func end_drag():
 	save_settings()
 
 
-func _on_CloseButton_pressed():
-	exit()
-
-
-func _on_StartButton_pressed():
-	is_running = true
-	start_time = OS.get_ticks_msec()
-#	displayed_time = 0
-#	display_time(0)
-	pause_button.disabled = false
-	complete_button.disabled = false
-	start_button.disabled = true
-
-
 func _on_MicroTimer_gui_input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
 		if not event.pressed and is_dragging:
@@ -125,7 +112,27 @@ func _on_MicroTimer_gui_input(event):
 			start_drag(event.global_position)
 
 
+func _on_CloseButton_pressed():
+	exit()
+
+
+func _on_StartButton_pressed():
+	is_running = true
+	
+#	displayed_time = 0
+#	display_time(0)
+	pause_button.disabled = false
+	complete_button.disabled = false
+	start_button.disabled = true
+	if pause_start_time == 0:
+		start_time = OS.get_ticks_msec()
+	else:
+		start_time += OS.get_ticks_msec() - pause_start_time
+		pause_start_time = 0
+
+
 func _on_PauseButton_pressed():
+	pause_start_time = OS.get_ticks_msec()
 	is_running = false
 	pause_button.disabled = true
 	start_button.disabled = false

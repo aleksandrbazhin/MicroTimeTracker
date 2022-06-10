@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://MicroTimer.gd" type="Script" id=1]
 [ext_resource path="res://Theme.tres" type="Theme" id=2]
@@ -6,6 +6,13 @@
 [ext_resource path="res://assets/done.png" type="Texture" id=4]
 [ext_resource path="res://assets/play_arrow.png" type="Texture" id=5]
 [ext_resource path="res://assets/FontStillBig.tres" type="DynamicFont" id=6]
+[ext_resource path="res://assets/ShareTechMono-Regular.ttf" type="DynamicFontData" id=7]
+
+[sub_resource type="DynamicFont" id=2]
+size = 28
+outline_size = 2
+outline_color = Color( 0.121569, 0.117647, 0.117647, 1 )
+font_data = ExtResource( 7 )
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -175,10 +182,11 @@ anchor_right = 1.0
 margin_left = -22.0
 margin_top = 2.0
 margin_right = -2.0
-margin_bottom = 30.0
+margin_bottom = 34.0
 rect_min_size = Vector2( 20, 0 )
 focus_mode = 0
 size_flags_horizontal = 8
+custom_fonts/font = SubResource( 2 )
 custom_styles/normal = SubResource( 1 )
 text = "×"
 
