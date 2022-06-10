@@ -1,12 +1,13 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://MicroTimer.gd" type="Script" id=1]
-[ext_resource path="res://Theme.tres" type="Theme" id=2]
+[ext_resource path="res://assets/Theme.tres" type="Theme" id=2]
 [ext_resource path="res://assets/pause.png" type="Texture" id=3]
 [ext_resource path="res://assets/done.png" type="Texture" id=4]
 [ext_resource path="res://assets/play_arrow.png" type="Texture" id=5]
 [ext_resource path="res://assets/FontStillBig.tres" type="DynamicFont" id=6]
 [ext_resource path="res://assets/ShareTechMono-Regular.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://assets/FontTooBig.tres" type="DynamicFont" id=8]
 
 [sub_resource type="DynamicFont" id=2]
 size = 28
@@ -16,38 +17,172 @@ font_data = ExtResource( 7 )
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
-[node name="MicroTimer" type="HBoxContainer"]
+[node name="MicroTimer" type="VBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+size_flags_vertical = 3
 theme = ExtResource( 2 )
+custom_constants/separation = 0
 script = ExtResource( 1 )
 
-[node name="Container" type="VBoxContainer" parent="."]
-margin_right = 202.0
-margin_bottom = 154.0
+[node name="Spacer" type="Control" parent="."]
+visible = false
+margin_right = 220.0
+size_flags_vertical = 2
 
-[node name="Control" type="Control" parent="Container"]
+[node name="TasksContainer" type="PanelContainer" parent="."]
+visible = false
+margin_right = 220.0
+margin_bottom = 43.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBox" type="VBoxContainer" parent="TasksContainer"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 216.0
+margin_bottom = 39.0
+size_flags_vertical = 3
+
+[node name="CurrentFolder" type="HBoxContainer" parent="TasksContainer/VBox"]
+margin_right = 212.0
+margin_bottom = 31.0
+
+[node name="LineEdit" type="LineEdit" parent="TasksContainer/VBox/CurrentFolder"]
+margin_right = 130.0
+margin_bottom = 31.0
+align = 3
+max_length = 5
+editable = false
+placeholder_text = "Select file"
+
+[node name="SelectFileButton" type="Button" parent="TasksContainer/VBox/CurrentFolder"]
+margin_left = 134.0
+margin_right = 206.0
+margin_bottom = 31.0
+rect_min_size = Vector2( 72, 0 )
+text = "Open"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TasksContainer/VBox"]
+margin_top = 35.0
+margin_right = 212.0
+margin_bottom = 35.0
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="Tasks" type="VBoxContainer" parent="TasksContainer/VBox/ScrollContainer"]
+margin_right = 72.0
+margin_bottom = 338.0
+custom_constants/separation = 10
+
+[node name="Label" type="Label" parent="TasksContainer/VBox/ScrollContainer/Tasks"]
+margin_right = 72.0
+margin_bottom = 19.0
+text = "sdfsdfsd"
+
+[node name="Label2" type="Label" parent="TasksContainer/VBox/ScrollContainer/Tasks"]
+margin_top = 29.0
+margin_right = 72.0
+margin_bottom = 48.0
+text = "sdfsdfsd"
+
+[node name="Label3" type="Label" parent="TasksContainer/VBox/ScrollContainer/Tasks"]
+margin_top = 58.0
+margin_right = 72.0
+margin_bottom = 77.0
+text = "sdfsdfsd"
+
+[node name="Label4" type="Label" parent="TasksContainer/VBox/ScrollContainer/Tasks"]
+margin_top = 87.0
+margin_right = 72.0
+margin_bottom = 106.0
+text = "sdfsdfsd"
+
+[node name="Label5" type="Label" parent="TasksContainer/VBox/ScrollContainer/Tasks"]
+margin_top = 116.0
+margin_right = 72.0
+margin_bottom = 135.0
+text = "sdfsdfsd"
+
+[node name="Label6" type="Label" parent="TasksContainer/VBox/ScrollContainer/Tasks"]
+margin_top = 145.0
+margin_right = 72.0
+margin_bottom = 164.0
+text = "sdfsdfsd"
+
+[node name="Label7" type="Label" parent="TasksContainer/VBox/ScrollContainer/Tasks"]
+margin_top = 174.0
+margin_right = 72.0
+margin_bottom = 193.0
+text = "sdfsdfsd"
+
+[node name="Label8" type="Label" parent="TasksContainer/VBox/ScrollContainer/Tasks"]
+margin_top = 203.0
+margin_right = 72.0
+margin_bottom = 222.0
+text = "sdfsdfsd"
+
+[node name="Label9" type="Label" parent="TasksContainer/VBox/ScrollContainer/Tasks"]
+margin_top = 232.0
+margin_right = 72.0
+margin_bottom = 251.0
+text = "sdfsdfsd"
+
+[node name="Label10" type="Label" parent="TasksContainer/VBox/ScrollContainer/Tasks"]
+margin_top = 261.0
+margin_right = 72.0
+margin_bottom = 280.0
+text = "sdfsdfsd"
+
+[node name="Label11" type="Label" parent="TasksContainer/VBox/ScrollContainer/Tasks"]
+margin_top = 290.0
+margin_right = 72.0
+margin_bottom = 309.0
+text = "sdfsdfsd"
+
+[node name="Label12" type="Label" parent="TasksContainer/VBox/ScrollContainer/Tasks"]
+margin_top = 319.0
+margin_right = 72.0
+margin_bottom = 338.0
+text = "sdfsdfsd"
+
+[node name="MarginContainer" type="MarginContainer" parent="TasksContainer"]
+visible = false
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 213.0
+margin_bottom = 40.0
+
+[node name="MinimizedContainer" type="HBoxContainer" parent="."]
+margin_right = 220.0
+margin_bottom = 143.0
+
+[node name="VBox" type="VBoxContainer" parent="MinimizedContainer"]
+margin_right = 202.0
+margin_bottom = 143.0
+
+[node name="Control" type="Control" parent="MinimizedContainer/VBox"]
 margin_right = 202.0
 margin_bottom = 2.0
 rect_min_size = Vector2( 0, 2 )
 
-[node name="Header" type="HBoxContainer" parent="Container"]
+[node name="Header" type="HBoxContainer" parent="MinimizedContainer/VBox"]
 margin_top = 6.0
 margin_right = 202.0
 margin_bottom = 42.0
 custom_constants/separation = 8
 
-[node name="Spacer" type="Control" parent="Container/Header"]
+[node name="Spacer" type="Control" parent="MinimizedContainer/VBox/Header"]
 margin_bottom = 36.0
 
-[node name="Button" type="Button" parent="Container/Header"]
+[node name="TasksButton" type="Button" parent="MinimizedContainer/VBox/Header"]
 margin_left = 8.0
 margin_right = 44.0
 margin_bottom = 36.0
 rect_min_size = Vector2( 36, 36 )
 text = ">"
 
-[node name="Label" type="Label" parent="Container/Header"]
+[node name="Label" type="Label" parent="MinimizedContainer/VBox/Header"]
 margin_left = 52.0
 margin_top = 4.0
 margin_right = 143.0
@@ -55,93 +190,97 @@ margin_bottom = 32.0
 custom_fonts/font = ExtResource( 6 )
 text = "No task"
 
-[node name="Timer" type="HBoxContainer" parent="Container"]
+[node name="Timer" type="HBoxContainer" parent="MinimizedContainer/VBox"]
 margin_top = 46.0
 margin_right = 202.0
-margin_bottom = 98.0
+margin_bottom = 87.0
 mouse_filter = 2
 size_flags_vertical = 3
 custom_constants/separation = 0
 
-[node name="Spacer" type="Control" parent="Container/Timer"]
+[node name="Spacer" type="Control" parent="MinimizedContainer/VBox/Timer"]
 margin_right = 8.0
-margin_bottom = 52.0
+margin_bottom = 41.0
 rect_min_size = Vector2( 8, 0 )
 
-[node name="Hour" type="Label" parent="Container/Timer"]
+[node name="Hour" type="Label" parent="MinimizedContainer/VBox/Timer"]
 margin_left = 8.0
 margin_right = 57.0
-margin_bottom = 52.0
+margin_bottom = 41.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_fonts/font = ExtResource( 8 )
 text = "00"
 align = 1
 valign = 1
 
-[node name="Semicolon" type="Label" parent="Container/Timer"]
+[node name="Semicolon" type="Label" parent="MinimizedContainer/VBox/Timer"]
 margin_left = 57.0
 margin_right = 76.0
-margin_bottom = 52.0
+margin_bottom = 41.0
 size_flags_vertical = 3
+custom_fonts/font = ExtResource( 8 )
 text = ":"
 align = 1
 valign = 1
 
-[node name="Minute" type="Label" parent="Container/Timer"]
+[node name="Minute" type="Label" parent="MinimizedContainer/VBox/Timer"]
 margin_left = 76.0
 margin_right = 125.0
-margin_bottom = 52.0
+margin_bottom = 41.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_fonts/font = ExtResource( 8 )
 text = "00"
 align = 1
 valign = 1
 
-[node name="Semicolon2" type="Label" parent="Container/Timer"]
+[node name="Semicolon2" type="Label" parent="MinimizedContainer/VBox/Timer"]
 margin_left = 125.0
 margin_right = 144.0
-margin_bottom = 52.0
+margin_bottom = 41.0
 size_flags_vertical = 3
+custom_fonts/font = ExtResource( 8 )
 text = ":"
 align = 1
 valign = 1
 
-[node name="Second" type="Label" parent="Container/Timer"]
+[node name="Second" type="Label" parent="MinimizedContainer/VBox/Timer"]
 margin_left = 144.0
 margin_right = 193.0
-margin_bottom = 52.0
+margin_bottom = 41.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_fonts/font = ExtResource( 8 )
 text = "00"
 align = 1
 valign = 1
 
-[node name="Spacer2" type="Control" parent="Container/Timer"]
+[node name="Spacer2" type="Control" parent="MinimizedContainer/VBox/Timer"]
 margin_left = 193.0
 margin_right = 201.0
-margin_bottom = 52.0
+margin_bottom = 41.0
 rect_min_size = Vector2( 8, 0 )
 
-[node name="Controls" type="HBoxContainer" parent="Container"]
-margin_top = 102.0
+[node name="Controls" type="HBoxContainer" parent="MinimizedContainer/VBox"]
+margin_top = 91.0
 margin_right = 202.0
-margin_bottom = 150.0
+margin_bottom = 139.0
 
-[node name="Spacer" type="Control" parent="Container/Controls"]
+[node name="Spacer" type="Control" parent="MinimizedContainer/VBox/Controls"]
 margin_bottom = 48.0
 size_flags_horizontal = 3
 
-[node name="StartButton" type="Button" parent="Container/Controls"]
+[node name="StartButton" type="Button" parent="MinimizedContainer/VBox/Controls"]
 margin_left = 4.0
 margin_right = 94.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 90, 36 )
-focus_mode = 0
 text = "Go!"
 icon = ExtResource( 5 )
 align = 0
 
-[node name="PauseButton" type="Button" parent="Container/Controls"]
+[node name="PauseButton" type="Button" parent="MinimizedContainer/VBox/Controls"]
 margin_left = 98.0
 margin_right = 146.0
 margin_bottom = 48.0
@@ -149,7 +288,7 @@ rect_min_size = Vector2( 40, 40 )
 disabled = true
 icon = ExtResource( 3 )
 
-[node name="CompleteButton" type="Button" parent="Container/Controls"]
+[node name="CompleteButton" type="Button" parent="MinimizedContainer/VBox/Controls"]
 margin_left = 150.0
 margin_right = 198.0
 margin_bottom = 48.0
@@ -158,25 +297,25 @@ focus_mode = 0
 disabled = true
 icon = ExtResource( 4 )
 
-[node name="Spacer2" type="Control" parent="Container/Controls"]
+[node name="Spacer2" type="Control" parent="MinimizedContainer/VBox/Controls"]
 margin_left = 202.0
 margin_right = 202.0
 margin_bottom = 48.0
 size_flags_horizontal = 3
 
-[node name="Spacer" type="Control" parent="Container"]
-margin_top = 154.0
+[node name="Spacer" type="Control" parent="MinimizedContainer/VBox"]
+margin_top = 143.0
 margin_right = 202.0
-margin_bottom = 154.0
+margin_bottom = 143.0
 size_flags_horizontal = 3
 
-[node name="Spacer" type="Control" parent="."]
+[node name="Spacer" type="Control" parent="MinimizedContainer"]
 margin_left = 206.0
 margin_right = 220.0
-margin_bottom = 154.0
+margin_bottom = 143.0
 rect_min_size = Vector2( 14, 0 )
 
-[node name="CloseButton" type="Button" parent="Spacer"]
+[node name="CloseButton" type="Button" parent="MinimizedContainer/Spacer"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -22.0
@@ -184,14 +323,27 @@ margin_top = 2.0
 margin_right = -2.0
 margin_bottom = 34.0
 rect_min_size = Vector2( 20, 0 )
-focus_mode = 0
 size_flags_horizontal = 8
 custom_fonts/font = SubResource( 2 )
 custom_styles/normal = SubResource( 1 )
 text = "×"
 
+[node name="FileDialog" type="FileDialog" parent="."]
+margin_right = 800.0
+margin_bottom = 600.0
+popup_exclusive = true
+window_title = "Open a File"
+mode = 0
+access = 2
+filters = PoolStringArray( "*.md ; Markdown files" )
+current_dir = "/home/alexander/GodotProjects/MicroTimer"
+current_path = "/home/alexander/GodotProjects/MicroTimer/"
+
 [connection signal="gui_input" from="." to="." method="_on_MicroTimer_gui_input"]
-[connection signal="pressed" from="Container/Controls/StartButton" to="." method="_on_StartButton_pressed"]
-[connection signal="pressed" from="Container/Controls/PauseButton" to="." method="_on_PauseButton_pressed"]
-[connection signal="pressed" from="Container/Controls/CompleteButton" to="." method="_on_CompleteButton_pressed"]
-[connection signal="pressed" from="Spacer/CloseButton" to="." method="_on_CloseButton_pressed"]
+[connection signal="pressed" from="TasksContainer/VBox/CurrentFolder/SelectFileButton" to="." method="_on_SelectFileButton_pressed"]
+[connection signal="pressed" from="MinimizedContainer/VBox/Header/TasksButton" to="." method="_on_TasksButton_pressed"]
+[connection signal="pressed" from="MinimizedContainer/VBox/Controls/StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="MinimizedContainer/VBox/Controls/PauseButton" to="." method="_on_PauseButton_pressed"]
+[connection signal="pressed" from="MinimizedContainer/VBox/Controls/CompleteButton" to="." method="_on_CompleteButton_pressed"]
+[connection signal="pressed" from="MinimizedContainer/Spacer/CloseButton" to="." method="_on_CloseButton_pressed"]
+[connection signal="hide" from="FileDialog" to="." method="_on_FileDialog_hide"]

@@ -1,8 +1,10 @@
-extends HBoxContainer
+extends VBoxContainer
+
 
 const USER_SETTINGS_PATH := "user://settings.json"
 const NO_TASK_LABEL := "No task"
-
+const FILE_DIALOG_WINDOW_SIZE := Vector2(800, 600)
+const TASK_SELECT_WINDOW_SIZE := Vector2(220, 500)
 
 var start_time: int
 var displayed_time: int
@@ -12,12 +14,16 @@ var is_dragging := false
 var drag_start_position: Vector2
 var settings: Dictionary
 
-onready var hour_label := $Container/Timer/Hour
-onready var minute_label := $Container/Timer/Minute
-onready var second_label := $Container/Timer/Second
-onready var start_button := $Container/Controls/StartButton
-onready var pause_button := $Container/Controls/PauseButton
-onready var complete_button := $Container/Controls/CompleteButton
+# to restore after
+onready var minimised_window_size := OS.window_size
+onready var minimised_window_position := OS.window_position
+
+onready var hour_label := $MinimizedContainer/VBox/Timer/Hour
+onready var minute_label := $MinimizedContainer/VBox/Timer/Minute
+onready var second_label := $MinimizedContainer/VBox/Timer/Second
+onready var start_button := $MinimizedContainer/VBox/Controls/StartButton
+onready var pause_button := $MinimizedContainer/VBox/Controls/PauseButton
+onready var complete_button := $MinimizedContainer/VBox/Controls/CompleteButton
 
 
 func _ready():
@@ -145,3 +151,32 @@ func _on_CompleteButton_pressed():
 	pause_button.disabled = true
 	complete_button.disabled = true
 	start_button.disabled = false
+
+
+func _on_FileDialog_hide():
+	OS.set_window_size(minimised_window_size)
+	OS.window_position = minimised_window_position
+
+
+func _on_SelectFileButton_pressed():
+	minimised_window_size = OS.window_size
+	minimised_window_position = OS.window_position
+	$FileDialog.show()
+	OS.set_window_size(FILE_DIALOG_WINDOW_SIZE)
+
+
+func _on_TasksButton_pressed():
+	if not $TasksContainer.visible:
+		minimised_window_size = OS.window_size
+		minimised_window_position = OS.window_position
+#		$TasksContainer.call_deferred("set_visible", true)
+		$TasksContainer.show()
+#		OS.set_window_size(TASK_SELECT_WINDOW_SIZE)
+		OS.call_deferred("set_window_size", TASK_SELECT_WINDOW_SIZE)
+#		$TasksContainer.show()
+	else:
+		OS.set_window_size(minimised_window_size)
+		OS.window_position = minimised_window_position
+		$TasksContainer.call_deferred("set_visible", false)
+#		$TasksContainer.hide()
+	
