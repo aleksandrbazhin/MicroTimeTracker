@@ -9,6 +9,7 @@ const TASK_SELECT_WINDOW_SIZE := Vector2(220, 500)
 var start_time: int
 var displayed_time: int
 var pause_start_time: int = 0
+var accumulated_time: int = 0
 var is_running := false
 var is_dragging := false
 var drag_start_position: Vector2
@@ -29,6 +30,8 @@ onready var task_list := $TasksContainer/VBox/ScrollContainer/Tasks
 onready var active_task_file := $TasksContainer/VBox/CurrentFIle/FileName
 onready var active_task := $MinimizedContainer/VBox/Header/Label
 
+onready var md_parser: MdParser = preload("res://Parser.gd").new()
+
 func _ready():
 	get_tree().get_root().set_transparent_background(true)
 	OS.set_window_always_on_top(true)
@@ -47,7 +50,7 @@ func _process(_delta: float):
 	if Input.is_mouse_button_pressed(BUTTON_LEFT) and is_dragging:
 		drag_window(get_global_mouse_position() - drag_start_position)
 	if is_running:
-		var elapsed_time = OS.get_ticks_msec() - start_time
+		var elapsed_time = accumulated_time + OS.get_ticks_msec() - start_time
 		if elapsed_time - displayed_time > 1000:
 			display_time(elapsed_time)
 			displayed_time = elapsed_time
@@ -95,11 +98,14 @@ func set_task(task_name: String):
 
 
 func set_task_from_node(task: TaskRow):
-	print(OS.get_ticks_msec())
+	# add curernt time to the active task
+	# 
+	start_time  = OS.get_ticks_msec() 
 	set_task(task.task_name)
-	pause_start_time = OS.get_ticks_msec() - task.time_spent
-	display_time(task.time_spent)
-	displayed_time = 0
+	accumulated_time = task.time_spent
+#	pause_start_time = OS.get_ticks_msec() - task.time_spent
+	display_time(accumulated_time)
+	displayed_time = accumulated_time
 
 
 func save_settings():
@@ -211,60 +217,6 @@ func _on_TasksContainer_gui_input(event):
 func _on_VBox_gui_input(event):
 	toggle_drag(event)
 
-# it's a list of task blocks, each looks like this 
-# { "header": String,
-#	"tasks": [ 
-#			{
-#				"name": String, 
-#				"time_spent": int (msecs),
-#				"completed": bool
-#			}
-#		]
-# }
-func parse_markdown(markdown: String) -> Array:
-	return [
-		{"header": "Block1",
-		"tasks": [
-			{
-				"name": "Task one", 
-				"time_spent": 0,
-				"completed": false
-			},
-			{
-				"name": "Task two", 
-				"time_spent": 0,
-				"completed": false
-			},
-			{
-				"name": "Task three", 
-				"time_spent": 100000,
-				"completed": true
-			}
-		]},
-		{"header": "Block2",
-		"tasks": [
-			{
-				"name": "Task dfgdfg", 
-				"time_spent": 0,
-				"completed": false
-			},
-			{
-				"name": "Task 5", 
-				"time_spent": 0,
-				"completed": false
-			},
-			{
-				"name": "Task 66666666", 
-				"time_spent": 36000000,
-				"completed": true
-			},
-			{
-				"name": "Task 707070707070", 
-				"time_spent": 1000000,
-				"completed": true
-			}
-		]}
-	]
 
 #TODO: sabe file hash to be schecked bfore file write
 #if hash has changed - do not save the file, show error dialog
@@ -278,7 +230,7 @@ func set_task_file(path: String):
 		return
 	var file_text := file.get_as_text()
 	file.close()
-	for task_block in parse_markdown(file_text):
+	for task_block in md_parser.parse(file_text):
 		var header := Label.new()
 		header.text = task_block["header"]
 		task_list.add_child(header)
@@ -291,7 +243,7 @@ func create_task_row(task: Dictionary):
 	var task_node: TaskRow = preload("TaskRow.tscn").instance()
 	task_node.set_name(task["name"])
 	task_node.set_completed(task["completed"])
-	task_node.set_time_spent( task["time_spent"])
+	task_node.set_time_spent(task["time_spent"])
 	task_list.add_child(task_node)
 	task_node.connect("selected", self, "set_task_from_node", [task_node])
 

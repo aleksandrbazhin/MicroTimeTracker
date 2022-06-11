@@ -1,3 +1,4 @@
+
 # UI tasks
 
 - [x] Set up pretty buttons (make icons) **(01:05:01)**
@@ -6,9 +7,12 @@
 - [x] Create menu for selecting files
 - [ ] Create file dialog for selecting markdown files
 
+
+
+
 # State saving
 
- - [ ] Window position
- - [ ] Is task menu collapsed
- - [ ] Selected file
- - [ ] Selected task
+- [ ] Window position
+- [ ] Is task menu collapsed
+- [ ] Selected file
+- [ ] Selected task

@@ -15,6 +15,7 @@ func conver_time(time_msec: int) -> String:
 	var seconds := time_msec / 1000
 	var minutes := seconds / 60
 	var time_text := "%02d" % (minutes / 60) + ":%02d" % (minutes % 60)
+	time_text += ":%02d" % (seconds % 60)
 	return time_text
 
 

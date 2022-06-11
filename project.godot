@@ -9,12 +9,18 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Object",
+"class": "MdParser",
+"language": "GDScript",
+"path": "res://Parser.gd"
+}, {
 "base": "HBoxContainer",
 "class": "TaskRow",
 "language": "GDScript",
 "path": "res://TaskRow.gd"
 } ]
 _global_script_class_icons={
+"MdParser": "",
 "TaskRow": ""
 }
 
@@ -32,6 +38,7 @@ config/windows_native_icon="res://assets/icon.ico"
 
 [debug]
 
+gdscript/warnings/return_value_discarded=false
 gdscript/warnings/integer_division=false
 
 [display]
@@ -42,6 +49,7 @@ window/size/resizable=false
 window/size/borderless=true
 window/size/always_on_top=true
 window/dpi/allow_hidpi=true
+window/vsync/use_vsync=false
 window/per_pixel_transparency/allowed=true
 window/per_pixel_transparency/enabled=true
 window/energy_saving/keep_screen_on=false
