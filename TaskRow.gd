@@ -48,6 +48,8 @@ func _on_Name_gui_input(event):
 
 func _on_CheckBox_gui_input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
-#		emit_signal("selected")
 		pass
 
+
+func set_active(is_active: bool):
+	$Control/ColorRect.visible = is_active
