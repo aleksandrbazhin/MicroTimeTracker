@@ -173,7 +173,7 @@ func _on_FileDialog_hide():
 
 func _on_SelectFileButton_pressed():
 	minimised_window_position = OS.window_position
-	$FileDialog.show()
+	$FileDialog.popup()
 	OS.set_window_size(FILE_DIALOG_WINDOW_SIZE)
 
 
@@ -212,6 +212,7 @@ func _on_VBox_gui_input(event):
 func set_task_file(path: String):
 	active_file_name_path = path
 	active_file_name.text = path.get_file()
+	
 	for child in task_hbox.get_children():
 		task_hbox.remove_child(child)
 	all_tasks.clear()
@@ -220,6 +221,7 @@ func set_task_file(path: String):
 		return
 	var file_text := file.get_as_text()
 	file.close()
+	
 	for task_block in md_parser.parse(file_text):
 		var header := Label.new()
 		header.text = task_block["header"]
@@ -228,6 +230,7 @@ func set_task_file(path: String):
 			var task_node := create_task_row(task)
 			task_hbox.add_child(task_node)
 			all_tasks.append(task_node)
+	$FileDialog.set_current_path(path)
 
 
 func create_task_row(task: Dictionary) -> TaskRow:
