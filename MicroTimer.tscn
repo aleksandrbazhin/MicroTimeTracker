@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://MicroTimer.gd" type="Script" id=1]
 [ext_resource path="res://assets/MainTheme.tres" type="Theme" id=2]
@@ -8,7 +8,6 @@
 [ext_resource path="res://assets/FontStillBig.tres" type="DynamicFont" id=6]
 [ext_resource path="res://assets/ShareTechMono-Regular.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://assets/FontTooBig.tres" type="DynamicFont" id=8]
-[ext_resource path="res://TaskRow.tscn" type="PackedScene" id=9]
 [ext_resource path="res://assets/Load.png" type="Texture" id=10]
 [ext_resource path="res://assets/FileDialogTheme.tres" type="Theme" id=11]
 
@@ -17,7 +16,7 @@ content_margin_left = 6.0
 content_margin_right = 6.0
 content_margin_top = 6.0
 content_margin_bottom = 6.0
-bg_color = Color( 0.227451, 0.219608, 0.219608, 0.678431 )
+bg_color = Color( 0.137255, 0.121569, 0.121569, 0.827451 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 28
@@ -34,89 +33,61 @@ size_flags_vertical = 3
 custom_constants/separation = 0
 script = ExtResource( 1 )
 
-[node name="Spacer" type="Control" parent="."]
-visible = false
-margin_right = 220.0
-size_flags_vertical = 2
-
 [node name="TasksContainer" type="PanelContainer" parent="."]
 visible = false
 margin_right = 220.0
-margin_bottom = 43.0
+margin_bottom = 52.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 2 )
 custom_styles/panel = SubResource( 3 )
 
 [node name="VBox" type="VBoxContainer" parent="TasksContainer"]
-margin_left = 4.0
-margin_top = 4.0
-margin_right = 216.0
-margin_bottom = 39.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = 214.0
+margin_bottom = 46.0
 size_flags_vertical = 3
 
 [node name="CurrentFIle" type="HBoxContainer" parent="TasksContainer/VBox"]
-margin_right = 212.0
-margin_bottom = 31.0
+margin_right = 208.0
+margin_bottom = 28.0
 
 [node name="FileName" type="Label" parent="TasksContainer/VBox/CurrentFIle"]
-margin_right = 130.0
-margin_bottom = 31.0
+margin_top = 4.0
+margin_right = 126.0
+margin_bottom = 23.0
 mouse_filter = 1
 size_flags_horizontal = 3
 text = "Select file"
 align = 3
 
 [node name="SelectFileButton" type="Button" parent="TasksContainer/VBox/CurrentFIle"]
-margin_left = 134.0
-margin_right = 206.0
-margin_bottom = 31.0
+margin_left = 130.0
+margin_right = 208.0
+margin_bottom = 28.0
 rect_min_size = Vector2( 78, 28 )
 focus_mode = 0
 text = "Open"
 icon = ExtResource( 10 )
 
 [node name="HSeparator" type="HSeparator" parent="TasksContainer/VBox"]
-margin_right = 40.0
-margin_bottom = 4.0
+margin_top = 32.0
+margin_right = 208.0
+margin_bottom = 36.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TasksContainer/VBox"]
-margin_top = 35.0
-margin_right = 212.0
-margin_bottom = 35.0
+margin_top = 40.0
+margin_right = 208.0
+margin_bottom = 40.0
 mouse_filter = 1
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="Tasks" type="VBoxContainer" parent="TasksContainer/VBox/ScrollContainer"]
-margin_right = 212.0
-margin_bottom = 342.0
+margin_right = 208.0
 size_flags_horizontal = 3
-custom_constants/separation = 6
-
-[node name="TaskRow" parent="TasksContainer/VBox/ScrollContainer/Tasks" instance=ExtResource( 9 )]
-
-[node name="TaskRow2" parent="TasksContainer/VBox/ScrollContainer/Tasks" instance=ExtResource( 9 )]
-
-[node name="TaskRow3" parent="TasksContainer/VBox/ScrollContainer/Tasks" instance=ExtResource( 9 )]
-
-[node name="TaskRow4" parent="TasksContainer/VBox/ScrollContainer/Tasks" instance=ExtResource( 9 )]
-
-[node name="TaskRow5" parent="TasksContainer/VBox/ScrollContainer/Tasks" instance=ExtResource( 9 )]
-
-[node name="TaskRow6" parent="TasksContainer/VBox/ScrollContainer/Tasks" instance=ExtResource( 9 )]
-
-[node name="TaskRow7" parent="TasksContainer/VBox/ScrollContainer/Tasks" instance=ExtResource( 9 )]
-
-[node name="TaskRow8" parent="TasksContainer/VBox/ScrollContainer/Tasks" instance=ExtResource( 9 )]
-
-[node name="TaskRow9" parent="TasksContainer/VBox/ScrollContainer/Tasks" instance=ExtResource( 9 )]
-
-[node name="TaskRow10" parent="TasksContainer/VBox/ScrollContainer/Tasks" instance=ExtResource( 9 )]
-
-[node name="TaskRow11" parent="TasksContainer/VBox/ScrollContainer/Tasks" instance=ExtResource( 9 )]
-
-[node name="TaskRow12" parent="TasksContainer/VBox/ScrollContainer/Tasks" instance=ExtResource( 9 )]
+custom_constants/separation = 8
 
 [node name="MinimizedContainer" type="HBoxContainer" parent="."]
 margin_right = 220.0
@@ -155,7 +126,7 @@ margin_top = 8.0
 margin_right = 196.0
 margin_bottom = 27.0
 rect_min_size = Vector2( 144, 0 )
-text = "No task"
+mouse_filter = 1
 clip_text = true
 
 [node name="Timer" type="HBoxContainer" parent="MinimizedContainer/VBox"]

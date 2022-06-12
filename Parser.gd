@@ -55,7 +55,9 @@ func parse(text: String) -> Array:
 				}
 			var time_result: RegExMatch = time_regex.search(task["name"])
 			if time_result != null:
-				task["time_spent"] = time_from_text(time_result.strings[0])
+				var time_string = time_result.strings[0]
+				task["time_spent"] = time_from_text(time_string)
+				task["name"] = task["name"].replace(time_string, "")
 			block["tasks"].append(task)
 		task_blocks.append(block)
 	return task_blocks

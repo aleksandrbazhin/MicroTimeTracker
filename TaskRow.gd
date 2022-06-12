@@ -3,7 +3,7 @@ extends HBoxContainer
 class_name TaskRow
 
 
-signal checked(is_pressed)
+signal checked()
 signal selected()
 
 var is_completed: bool = false
@@ -21,6 +21,7 @@ func conver_time(time_msec: int) -> String:
 
 func set_completed(new_is_completed: bool):
 	is_completed = new_is_completed
+	$Name.disabled = is_completed
 	$CheckBox.pressed = is_completed
 
 
@@ -35,12 +36,14 @@ func set_name(new_name: String):
 
 
 func _on_CheckBox_toggled(button_pressed):
-	emit_signal("checked", button_pressed)
+	set_completed(button_pressed)
+	emit_signal("checked")
 
 
 func _on_Name_gui_input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
-		emit_signal("selected")
+		if not $Name.disabled:
+			emit_signal("selected")
 
 
 func _on_CheckBox_gui_input(event):

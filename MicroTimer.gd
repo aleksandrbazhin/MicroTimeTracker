@@ -14,7 +14,9 @@ var is_running := false
 var is_dragging := false
 var drag_start_position: Vector2
 var settings: Dictionary
-var active_task_file_path: String
+var active_file_name_path: String
+var all_tasks := []
+var active_task_ref: WeakRef = null
 
 # to restore after expanding task list
 onready var minimised_window_size := OS.window_size
@@ -27,8 +29,8 @@ onready var start_button := $MinimizedContainer/VBox/Controls/StartButton
 onready var pause_button := $MinimizedContainer/VBox/Controls/PauseButton
 onready var complete_button := $MinimizedContainer/VBox/Controls/CompleteButton
 onready var task_list := $TasksContainer/VBox/ScrollContainer/Tasks
-onready var active_task_file := $TasksContainer/VBox/CurrentFIle/FileName
-onready var active_task := $MinimizedContainer/VBox/Header/Label
+onready var active_file_name := $TasksContainer/VBox/CurrentFIle/FileName
+onready var active_task_name_label := $MinimizedContainer/VBox/Header/Label
 
 onready var md_parser: MdParser = preload("res://Parser.gd").new()
 
@@ -87,25 +89,8 @@ func apply_settings():
 		OS.window_position = str2var(settings["window_position"])
 	if settings.has("recent_file"):
 		set_task_file(settings["recent_file"])
-#	set_task_file("")
 		if settings.has("recent_task"):
-			set_task(settings["recent_task"])
-
-
-func set_task(task_name: String):
-	active_task.text = task_name
-	save_settings()
-
-
-func set_task_from_node(task: TaskRow):
-	# add curernt time to the active task
-	# 
-	start_time  = OS.get_ticks_msec() 
-	set_task(task.task_name)
-	accumulated_time = task.time_spent
-#	pause_start_time = OS.get_ticks_msec() - task.time_spent
-	display_time(accumulated_time)
-	displayed_time = accumulated_time
+			set_task_by_name(settings["recent_task"])
 
 
 func save_settings():
@@ -119,8 +104,9 @@ func save_settings():
 
 func capture_settings():
 	settings["window_position"] = var2str(OS.window_position)
-	settings["recent_task"] = active_task.text
-	settings["recent_file"] = active_task_file_path
+	settings["recent_task"] = active_task_name_label.text
+	settings["recent_file"] = active_file_name_path
+
 
 func start_drag(mouse_position: Vector2):
 	drag_start_position = mouse_position
@@ -172,14 +158,6 @@ func _on_PauseButton_pressed():
 	start_button.disabled = false
 
 
-func _on_CompleteButton_pressed():
-	displayed_time = 0
-	display_time(0)
-	is_running = false
-	pause_button.disabled = true
-	complete_button.disabled = true
-	start_button.disabled = false
-
 
 func _on_FileDialog_hide():
 	OS.set_window_size(minimised_window_size)
@@ -221,10 +199,11 @@ func _on_VBox_gui_input(event):
 #TODO: sabe file hash to be schecked bfore file write
 #if hash has changed - do not save the file, show error dialog
 func set_task_file(path: String):
-	active_task_file_path = path
-	active_task_file.text = path.get_file()
+	active_file_name_path = path
+	active_file_name.text = path.get_file()
 	for child in task_list.get_children():
 		task_list.remove_child(child)
+	all_tasks.clear()
 	var file := File.new()
 	if file.open(path, File.READ) != OK:
 		return
@@ -235,18 +214,68 @@ func set_task_file(path: String):
 		header.text = task_block["header"]
 		task_list.add_child(header)
 		for task in task_block["tasks"]:
-			create_task_row(task)
-	save_settings()
+			var task_node := create_task_row(task)
+			task_list.add_child(task_node)
+			all_tasks.append(task_node)
 
 
-func create_task_row(task: Dictionary):
+func create_task_row(task: Dictionary) -> TaskRow:
 	var task_node: TaskRow = preload("TaskRow.tscn").instance()
 	task_node.set_name(task["name"])
 	task_node.set_completed(task["completed"])
 	task_node.set_time_spent(task["time_spent"])
-	task_list.add_child(task_node)
-	task_node.connect("selected", self, "set_task_from_node", [task_node])
+	task_node.connect("selected", self, "set_active_task", [task_node])
+	task_node.connect("checked", self, "set_task_checked", [task_node])
+	return task_node
+
+
+func select_next_available_task(task_node: TaskRow):
+	var task_index := all_tasks.find(task_node)
+	if task_index != -1:
+		for i in range(all_tasks.size()):
+			var next_index := posmod(task_index + i, all_tasks.size())
+			if not all_tasks[next_index].is_completed:
+				set_active_task(all_tasks[next_index])
+				break
+
+
+func set_task_checked(task_node: TaskRow):
+	if task_node.is_completed:
+		select_next_available_task(task_node)
+
+
+func set_task_by_name(task_name: String):
+	for task in all_tasks:
+		if task.task_name == task_name:
+			set_active_task(task)
+			return
+
+
+func set_active_task(task: TaskRow):
+	active_task_ref = weakref(task)
+	start_time  = OS.get_ticks_msec() 
+	active_task_name_label.text = task.task_name
+	save_settings()
+	accumulated_time = task.time_spent
+	display_time(accumulated_time)
+	displayed_time = accumulated_time
+
+
+func _on_CompleteButton_pressed():
+	displayed_time = 0
+	display_time(0)
+	is_running = false
+	pause_button.disabled = true
+	complete_button.disabled = true
+	start_button.disabled = false
+	if active_task_ref != null:
+		var task_node: TaskRow = active_task_ref.get_ref()
+		task_node.set_completed(true)
+		select_next_available_task(task_node)
 
 
 func _on_FileDialog_file_selected(path: String):
 	set_task_file(path)
+	save_settings()
+
+
