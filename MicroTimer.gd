@@ -3,8 +3,9 @@ extends VBoxContainer
 
 const USER_SETTINGS_PATH := "user://settings.json"
 const NO_TASK_LABEL := "No task"
-const FILE_DIALOG_WINDOW_SIZE := Vector2(700, 500)
+const MINIMISED_WINDOW_SIZE := Vector2(220, 143)
 const TASK_SELECT_WINDOW_SIZE := Vector2(220, 500)
+const FILE_DIALOG_WINDOW_SIZE := Vector2(700, 500)
 
 var start_time: int
 var displayed_time: int
@@ -19,17 +20,17 @@ var all_tasks := []
 var active_task_ref: WeakRef = null
 
 # to restore after expanding task list
-onready var minimised_window_size := OS.window_size
-onready var minimised_window_position := OS.window_position
 
+onready var minimised_window_position := OS.window_position
 onready var hour_label := $MinimizedContainer/VBox/Timer/Hour
 onready var minute_label := $MinimizedContainer/VBox/Timer/Minute
 onready var second_label := $MinimizedContainer/VBox/Timer/Second
 onready var start_button := $MinimizedContainer/VBox/Controls/StartButton
 onready var pause_button := $MinimizedContainer/VBox/Controls/PauseButton
 onready var complete_button := $MinimizedContainer/VBox/Controls/CompleteButton
+onready var task_container := $TasksContainer
 onready var task_scroll := $TasksContainer/VBox/ScrollContainer
-onready var task_container := $TasksContainer/VBox/ScrollContainer/Tasks
+onready var task_hbox := $TasksContainer/VBox/ScrollContainer/Tasks
 onready var active_file_name := $TasksContainer/VBox/CurrentFIle/FileName
 onready var active_task_name_label := $MinimizedContainer/VBox/Header/Label
 
@@ -85,6 +86,7 @@ func load_settings():
 	apply_settings()
 
 
+
 func apply_settings():
 	if settings.has("window_position"):
 		OS.window_position = str2var(settings["window_position"])
@@ -92,21 +94,26 @@ func apply_settings():
 		set_task_file(settings["recent_file"])
 		if settings.has("recent_task"):
 			set_task_by_name(settings["recent_task"])
+	if settings.has("task_container_visible"):
+		set_task_container_visible(settings["task_container_visible"], true)
+
+
+func capture_settings():
+	
+	settings["window_position"] = var2str(OS.window_position)
+	settings["recent_task"] = active_task_name_label.text
+	settings["recent_file"] = active_file_name_path
+	settings["task_container_visible"] = task_container.visible
 
 
 func save_settings():
 	capture_settings()
+#	print(settings)
 	var file := File.new()
 	if file.open(USER_SETTINGS_PATH, File.WRITE) != OK:
 		return
 	file.store_string(JSON.print(settings, "\t"))
 	file.close()
-
-
-func capture_settings():
-	settings["window_position"] = var2str(OS.window_position)
-	settings["recent_task"] = active_task_name_label.text
-	settings["recent_file"] = active_file_name_path
 
 
 func start_drag(mouse_position: Vector2):
@@ -160,27 +167,32 @@ func _on_PauseButton_pressed():
 
 
 func _on_FileDialog_hide():
-	OS.set_window_size(minimised_window_size)
+	OS.set_window_size(TASK_SELECT_WINDOW_SIZE)
 	OS.window_position = minimised_window_position
 
 
 func _on_SelectFileButton_pressed():
-	minimised_window_size = OS.window_size
 	minimised_window_position = OS.window_position
 	$FileDialog.show()
 	OS.set_window_size(FILE_DIALOG_WINDOW_SIZE)
 
 
-func _on_TasksButton_pressed():
-	if not $TasksContainer.visible:
-		minimised_window_size = OS.window_size
-		minimised_window_position = OS.window_position
+func set_task_container_visible(is_visible: bool, is_restoring: bool = false):
+	if is_visible:
+		if not is_restoring:
+			OS.window_position.y -= task_container.rect_size.y
 		$TasksContainer.show()
-		OS.call_deferred("set_window_size", TASK_SELECT_WINDOW_SIZE)
+		OS.set_window_size(TASK_SELECT_WINDOW_SIZE)
 	else:
 		$TasksContainer.hide()
-		OS.set_window_size(minimised_window_size)
-		OS.window_position = minimised_window_position
+		OS.set_window_size(MINIMISED_WINDOW_SIZE)
+		if not is_restoring:
+			OS.window_position.y += task_container.rect_size.y
+
+
+func _on_TasksButton_pressed():
+	set_task_container_visible(not $TasksContainer.visible)
+	save_settings()
 
 
 func _on_MicroTimer_gui_input(event):
@@ -200,8 +212,8 @@ func _on_VBox_gui_input(event):
 func set_task_file(path: String):
 	active_file_name_path = path
 	active_file_name.text = path.get_file()
-	for child in task_container.get_children():
-		task_container.remove_child(child)
+	for child in task_hbox.get_children():
+		task_hbox.remove_child(child)
 	all_tasks.clear()
 	var file := File.new()
 	if file.open(path, File.READ) != OK:
@@ -211,10 +223,10 @@ func set_task_file(path: String):
 	for task_block in md_parser.parse(file_text):
 		var header := Label.new()
 		header.text = task_block["header"]
-		task_container.add_child(header)
+		task_hbox.add_child(header)
 		for task in task_block["tasks"]:
 			var task_node := create_task_row(task)
-			task_container.add_child(task_node)
+			task_hbox.add_child(task_node)
 			all_tasks.append(task_node)
 
 
@@ -267,7 +279,6 @@ func set_active_task(task: TaskRow):
 	active_task_ref = weakref(task)
 	start_time  = OS.get_ticks_msec() 
 	active_task_name_label.text = task.task_name
-	save_settings()
 	accumulated_time = task.time_spent
 	display_time(accumulated_time)
 	displayed_time = accumulated_time
