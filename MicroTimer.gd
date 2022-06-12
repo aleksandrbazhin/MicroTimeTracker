@@ -272,16 +272,19 @@ func set_active_task(task: TaskRow):
 		active_task_name_label.text = NO_TASK_LABEL
 		return
 	task.set_active(true)
-	if task_scroll.scroll_vertical > task.rect_position.y:
-		task_scroll.scroll_vertical = task.rect_position.y - 4
-	if task_scroll.scroll_vertical + task_scroll.rect_size.y < task.rect_position.y:
-		task_scroll.scroll_vertical = task.rect_position.y + task.rect_size.y - task_scroll.rect_size.y + 4
+
 	active_task_ref = weakref(task)
 	start_time  = OS.get_ticks_msec() 
 	active_task_name_label.text = task.task_name
 	accumulated_time = task.time_spent
 	display_time(accumulated_time)
 	displayed_time = accumulated_time
+	yield(VisualServer, "frame_post_draw")
+	if task_scroll.scroll_vertical > task.rect_position.y:
+		task_scroll.scroll_vertical = task.rect_position.y - 4
+	var task_bottom: int = task.rect_position.y + task.rect_size.y + 4
+	if task_scroll.scroll_vertical + task_scroll.rect_size.y < task_bottom:
+		task_scroll.scroll_vertical = task_bottom - task_scroll.rect_size.y
 
 
 func _on_CompleteButton_pressed():

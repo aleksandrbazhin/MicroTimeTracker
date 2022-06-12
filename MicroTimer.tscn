@@ -34,6 +34,7 @@ custom_constants/separation = 0
 script = ExtResource( 1 )
 
 [node name="TasksContainer" type="PanelContainer" parent="."]
+visible = false
 margin_right = 220.0
 margin_bottom = 52.0
 size_flags_horizontal = 3
@@ -89,9 +90,8 @@ size_flags_horizontal = 3
 custom_constants/separation = 8
 
 [node name="MinimizedContainer" type="HBoxContainer" parent="."]
-margin_top = 52.0
 margin_right = 220.0
-margin_bottom = 195.0
+margin_bottom = 143.0
 theme = ExtResource( 2 )
 
 [node name="VBox" type="VBoxContainer" parent="MinimizedContainer"]
@@ -279,7 +279,7 @@ dialog_hide_on_ok = true
 dialog_autowrap = true
 mode = 0
 access = 2
-filters = PoolStringArray( "*.md ; Markdown files" )
+filters = PoolStringArray( "*.md; Markdown" )
 current_dir = "/home/alexander/GodotProjects/MicroTimer"
 current_path = "/home/alexander/GodotProjects/MicroTimer/"
 
