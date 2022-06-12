@@ -36,6 +36,11 @@ Pros:
 
 
 Cons: 
+- There is no way to intelligently sync file, that is being currently used to track the time. You are at your own here. The program will track the hash of the last used markdown file and if current file differs, the program instead of saving to the file, will prompt you to choose another file (with the suffix "_desync_" by default). And will try to reload the file. Desyncs can happen when file was changed:
+    - by you in the text editors
+    - after git pull
+    - after git check out to another branch or commit
+
 - Individual contributions are neither measured, nor time spent on one task by different members is added. You have to add it yourself while resolving merge conflicts, I guess.
 
 #### Tips:
@@ -45,3 +50,9 @@ Cons:
     - GitHub Markdown Preview
     - Markdown Preview Github Styling
 2. You can use folders with files task lists as canban boards. When all task in the file are done, move it to another folder, something like that, I guess.
+3. To prevent desync use personal markdown files with task lists, which aren't updated by other users.
+4. The markdown file is changed in the following circumstances:
+    - When he task status changed
+    - Once a minute - task time is updated
+    - On program exit
+    - Another file selected
