@@ -11,7 +11,7 @@ var time_spent: int = 0
 var task_name: String = ""
 
 
-func conver_time(time_msec: int) -> String:
+func convert_time(time_msec: int) -> String:
 	var seconds := time_msec / 1000
 	var minutes := seconds / 60
 	var time_text := "%02d" % (minutes / 60) + ":%02d" % (minutes % 60)
@@ -26,7 +26,7 @@ func set_completed(new_is_completed: bool):
 
 
 func set_time_spent(new_time: int):
-	$Time.text = conver_time(new_time)
+	$Time.text = convert_time(new_time)
 	time_spent = new_time
 
 

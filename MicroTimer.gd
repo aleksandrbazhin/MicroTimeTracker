@@ -18,8 +18,7 @@ var settings: Dictionary
 var active_file_name_path: String
 var all_tasks := []
 var active_task_ref: WeakRef = null
-
-# to restore after expanding task list
+var recent_file_hash: int = 0
 
 onready var minimised_window_position := OS.window_position
 onready var hour_label := $MinimizedContainer/VBox/Timer/Hour
@@ -49,8 +48,7 @@ func _process(_delta: float):
 		if $FileDialog.visible:
 			$FileDialog.hide()
 		else:
-			exit()
-#	Input.is_mouse_button_pressed(BUTTON_LEFT)
+			get_tree().quit()
 	if Input.is_mouse_button_pressed(BUTTON_LEFT) and is_dragging:
 		drag_window(get_global_mouse_position() - drag_start_position)
 	if is_running:
@@ -66,11 +64,9 @@ func display_time(time: int):
 	var minutes := seconds / 60
 	minute_label.text = "%02d" % (minutes % 60)
 	hour_label.text = "%02d" % (minutes / 60)
-
-
-func exit():
-	get_tree().quit()
-	save_settings()
+	if active_task_ref != null:
+		var task: TaskRow = active_task_ref.get_ref()
+		task.set_time_spent(time)
 
 
 func load_settings():
@@ -84,7 +80,6 @@ func load_settings():
 		return
 	settings = parsed_data
 	apply_settings()
-
 
 
 func apply_settings():
@@ -144,7 +139,7 @@ func drag_window(drag_delta: Vector2):
 
 
 func _on_CloseButton_pressed():
-	exit()
+	get_tree().quit()
 
 
 func _on_StartButton_pressed():
@@ -207,12 +202,13 @@ func _on_VBox_gui_input(event):
 	toggle_drag(event)
 
 
-#TODO: sabe file hash to be schecked bfore file write
+#TODO: save file hash to be schecked bfore file write
 #if hash has changed - do not save the file, show error dialog
 func set_task_file(path: String):
+	
 	active_file_name_path = path
 	active_file_name.text = path.get_file()
-	
+
 	for child in task_hbox.get_children():
 		task_hbox.remove_child(child)
 	all_tasks.clear()
@@ -221,6 +217,8 @@ func set_task_file(path: String):
 		return
 	var file_text := file.get_as_text()
 	file.close()
+	
+	recent_file_hash = hash(file_text)
 	
 	for task_block in md_parser.parse(file_text):
 		var header := Label.new()
@@ -273,6 +271,8 @@ func set_active_task(task: TaskRow):
 	if task == null:
 		active_task_ref = null
 		active_task_name_label.text = NO_TASK_LABEL
+		displayed_time = 0
+		display_time(0)
 		return
 	task.set_active(true)
 
@@ -291,16 +291,20 @@ func set_active_task(task: TaskRow):
 
 
 func _on_CompleteButton_pressed():
-	displayed_time = 0
-	display_time(0)
-	is_running = false
-	pause_button.disabled = true
-	complete_button.disabled = true
-	start_button.disabled = false
+#	is_running = false
+#	pause_button.disabled = true
+#	complete_button.disabled = true
 	if active_task_ref != null:
 		var task_node: TaskRow = active_task_ref.get_ref()
 		task_node.set_completed(true)
 		select_next_available_task(task_node)
+	else:
+		start_button.disabled = false
+		is_running = false
+		pause_button.disabled = true
+		complete_button.disabled = true
+		displayed_time = 0
+		display_time(0)
 
 
 func _on_FileDialog_file_selected(path: String):
@@ -311,4 +315,5 @@ func _on_FileDialog_file_selected(path: String):
 		set_active_task(null)
 	save_settings()
 
-
+func _exit_tree():
+	print("asdasd")
