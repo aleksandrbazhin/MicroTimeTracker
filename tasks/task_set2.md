@@ -12,7 +12,7 @@
 
 # State saving
 
-- [ ] Window position
-- [ ] Is task menu collapsed
+- [x] Window position
+- [x] Is task menu collapsed
 - [ ] Selected file
 - [ ] Selected task

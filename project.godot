@@ -10,9 +10,9 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Object",
-"class": "MdParser",
+"class": "MdFile",
 "language": "GDScript",
-"path": "res://Parser.gd"
+"path": "res://MarkdownFile.gd"
 }, {
 "base": "HBoxContainer",
 "class": "TaskRow",
@@ -20,7 +20,7 @@ _global_script_classes=[ {
 "path": "res://TaskRow.gd"
 } ]
 _global_script_class_icons={
-"MdParser": "",
+"MdFile": "",
 "TaskRow": ""
 }
 

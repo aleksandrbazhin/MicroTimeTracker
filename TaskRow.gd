@@ -9,7 +9,9 @@ signal selected()
 var is_completed: bool = false
 var time_spent: int = 0
 var task_name: String = ""
-
+var file_check_position: int
+var file_time_position_start: int
+var file_time_position_end: int
 
 func convert_time(time_msec: int) -> String:
 	var seconds := time_msec / 1000
@@ -53,3 +55,12 @@ func _on_CheckBox_gui_input(event):
 
 func set_active(is_active: bool):
 	$Control/ColorRect.visible = is_active
+
+
+func from_dict(task_dict: Dictionary):
+	set_name(task_dict["name"])
+	set_completed(task_dict["completed"])
+	set_time_spent(task_dict["time_spent"])
+	file_check_position = task_dict["file_check_position"]
+	file_time_position_start = task_dict["file_time_position_start"]
+	file_time_position_end = task_dict["file_time_position_end"]

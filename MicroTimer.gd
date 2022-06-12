@@ -18,7 +18,6 @@ var settings: Dictionary
 var active_file_name_path: String
 var all_tasks := []
 var active_task_ref: WeakRef = null
-var recent_file_hash: int = 0
 
 onready var minimised_window_position := OS.window_position
 onready var hour_label := $MinimizedContainer/VBox/Timer/Hour
@@ -33,7 +32,7 @@ onready var task_hbox := $TasksContainer/VBox/ScrollContainer/Tasks
 onready var active_file_name := $TasksContainer/VBox/CurrentFIle/FileName
 onready var active_task_name_label := $MinimizedContainer/VBox/Header/Label
 
-onready var md_parser: MdParser = preload("res://Parser.gd").new()
+onready var md_file: MdFile = preload("res://MarkdownFile.gd").new()
 
 func _ready():
 	get_tree().get_root().set_transparent_background(true)
@@ -94,7 +93,6 @@ func apply_settings():
 
 
 func capture_settings():
-	
 	settings["window_position"] = var2str(OS.window_position)
 	settings["recent_task"] = active_task_name_label.text
 	settings["recent_file"] = active_file_name_path
@@ -202,29 +200,20 @@ func _on_VBox_gui_input(event):
 	toggle_drag(event)
 
 
-#TODO: save file hash to be schecked bfore file write
-#if hash has changed - do not save the file, show error dialog
 func set_task_file(path: String):
-	
 	active_file_name_path = path
 	active_file_name.text = path.get_file()
 
 	for child in task_hbox.get_children():
 		task_hbox.remove_child(child)
 	all_tasks.clear()
-	var file := File.new()
-	if file.open(path, File.READ) != OK:
-		return
-	var file_text := file.get_as_text()
-	file.close()
 	
-	recent_file_hash = hash(file_text)
-	
-	for task_block in md_parser.parse(file_text):
+	for task_block in md_file.read_task_file(path):
 		var header := Label.new()
 		header.text = task_block["header"]
 		task_hbox.add_child(header)
 		for task in task_block["tasks"]:
+#			print(task)
 			var task_node := create_task_row(task)
 			task_hbox.add_child(task_node)
 			all_tasks.append(task_node)
@@ -233,9 +222,7 @@ func set_task_file(path: String):
 
 func create_task_row(task: Dictionary) -> TaskRow:
 	var task_node: TaskRow = preload("TaskRow.tscn").instance()
-	task_node.set_name(task["name"])
-	task_node.set_completed(task["completed"])
-	task_node.set_time_spent(task["time_spent"])
+	task_node.from_dict(task)
 	task_node.connect("selected", self, "set_active_task", [task_node])
 	task_node.connect("checked", self, "set_task_checked", [task_node])
 	return task_node
@@ -255,6 +242,7 @@ func select_next_available_task(task_node: TaskRow):
 func set_task_checked(task_node: TaskRow):
 	if task_node.is_completed:
 		select_next_available_task(task_node)
+	md_file.update_task_completed(task_node)
 
 
 func set_task_by_name(task_name: String):
