@@ -96,13 +96,14 @@ func parse(text: String) -> Array:
 	var task_blocks := []
 	
 	var section_regex := RegEx.new()
-	section_regex.compile('# (.+)[\r\n]+- \\[[ x]\\][^#]*')
+	section_regex.compile('# (.+)[^#]*\n- \\[[ x]\\][^#]*')
 	var task_regex := RegEx.new()
 	task_regex.compile('\n- \\[( |x)\\] (.*)')
 	var time_regex := RegEx.new()
 	time_regex.compile('\\*\\*\\(\\d{2,}:\\d{2}:\\d{2}\\)\\*\\*$')
 	
 	for section_result in section_regex.search_all(text):
+		print(section_result.strings)
 		var section = section_result.strings[0]
 		var first_line_break: int = section.find("\n")
 		if first_line_break == -1:
