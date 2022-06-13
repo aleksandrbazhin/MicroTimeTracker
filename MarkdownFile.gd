@@ -76,7 +76,7 @@ func parse(text: String) -> Array:
 	var task_regex := RegEx.new()
 	task_regex.compile('\n- \\[( |x)\\] (.*)')
 	var time_regex := RegEx.new()
-	time_regex.compile('(?:\\*\\*\\(\\d{2,}\\:\\d{2}:\\d{2}\\)\\*\\*)')
+	time_regex.compile('(?:\\*\\*\\(\\d{2,}:\\d{2}:\\d{2}\\)\\*\\*)')
 	
 	for section_result in section_regex.search_all(text):
 		var section = section_result.strings[0]
@@ -112,4 +112,13 @@ func parse(text: String) -> Array:
 func time_from_text(time_string: String) -> int:
 	if time_string.empty():
 		return 0
-	return 50000000
+	var time_regex := RegEx.new()
+	time_regex.compile('\\*\\*\\((\\d{2,}):(\\d{2}):(\\d{2})\\)\\*\\*')
+	var time_result := time_regex.search(time_string)
+	if time_result == null:
+		 return 0
+	var time := 0
+	time += int(time_result.strings[1]) * 3600000
+	time += int(time_result.strings[2]) * 60000
+	time += int(time_result.strings[3]) * 1000
+	return time

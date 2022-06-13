@@ -303,5 +303,6 @@ func _on_FileDialog_file_selected(path: String):
 		set_active_task(null)
 	save_settings()
 
+
 func _exit_tree():
-	print("asdasd")
+	save_settings()
