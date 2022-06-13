@@ -6,10 +6,12 @@
 [ext_resource path="res://assets/done.png" type="Texture" id=4]
 [ext_resource path="res://assets/play_arrow.png" type="Texture" id=5]
 [ext_resource path="res://assets/FontStillBig.tres" type="DynamicFont" id=6]
-[ext_resource path="res://assets/ShareTechMono-Regular.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://assets/cross.png" type="Texture" id=7]
 [ext_resource path="res://assets/FontTooBig.tres" type="DynamicFont" id=8]
+[ext_resource path="res://assets/cross_hover.png" type="Texture" id=9]
 [ext_resource path="res://assets/Load.png" type="Texture" id=10]
 [ext_resource path="res://assets/FileDialogTheme.tres" type="Theme" id=11]
+[ext_resource path="res://assets/cross_press.png" type="Texture" id=12]
 
 [sub_resource type="StyleBoxFlat" id=3]
 content_margin_left = 6.0
@@ -17,14 +19,6 @@ content_margin_right = 6.0
 content_margin_top = 6.0
 content_margin_bottom = 6.0
 bg_color = Color( 0.137255, 0.121569, 0.121569, 0.827451 )
-
-[sub_resource type="DynamicFont" id=2]
-size = 28
-outline_size = 2
-outline_color = Color( 0.121569, 0.117647, 0.117647, 1 )
-font_data = ExtResource( 7 )
-
-[sub_resource type="StyleBoxEmpty" id=1]
 
 [node name="MicroTimer" type="VBoxContainer"]
 anchor_right = 1.0
@@ -255,18 +249,17 @@ margin_right = 220.0
 margin_bottom = 143.0
 rect_min_size = Vector2( 14, 0 )
 
-[node name="CloseButton" type="Button" parent="MinimizedContainer/Spacer"]
+[node name="CloseButton" type="TextureButton" parent="MinimizedContainer/Spacer"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -22.0
+margin_left = -26.0
 margin_top = 2.0
 margin_right = -2.0
-margin_bottom = 34.0
-rect_min_size = Vector2( 20, 0 )
+margin_bottom = 26.0
 size_flags_horizontal = 8
-custom_fonts/font = SubResource( 2 )
-custom_styles/normal = SubResource( 1 )
-text = "×"
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 12 )
+texture_hover = ExtResource( 9 )
 
 [node name="FileDialog" type="FileDialog" parent="."]
 margin_right = 700.0
