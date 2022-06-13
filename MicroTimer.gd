@@ -231,6 +231,7 @@ func load_tasks_from_file(path: String):
 	all_tasks.clear()
 	for task_block in md_file.read_task_file(path):
 		var header := Label.new()
+		header.clip_text = true
 		header.text = task_block["header"]
 		task_hbox.add_child(header)
 		for task in task_block["tasks"]:

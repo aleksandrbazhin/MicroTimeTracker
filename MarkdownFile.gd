@@ -103,7 +103,6 @@ func parse(text: String) -> Array:
 	time_regex.compile('\\*\\*\\(\\d{2,}:\\d{2}:\\d{2}\\)\\*\\*$')
 	
 	for section_result in section_regex.search_all(text):
-		print(section_result.strings)
 		var section = section_result.strings[0]
 		var first_line_break: int = section.find("\n")
 		if first_line_break == -1:
