@@ -13,10 +13,11 @@ var file_check_position: int
 var file_time_position_start: int
 var file_time_position_end: int
 
+
 func convert_time(time_msec: int) -> String:
 	var seconds := time_msec / 1000
 	var minutes := seconds / 60
-	var time_text := "%02d" % (minutes / 60) + ":%02d" % (minutes % 60)
+	var time_text := "%02d:%02d" % [minutes / 60, minutes % 60]
 	time_text += ":%02d" % (seconds % 60)
 	return time_text
 
@@ -64,3 +65,10 @@ func from_dict(task_dict: Dictionary):
 	file_check_position = task_dict["file_check_position"]
 	file_time_position_start = task_dict["file_time_position_start"]
 	file_time_position_end = task_dict["file_time_position_end"]
+#	print(task_name, " ", file_time_position_start, " ", file_time_position_end)
+
+
+func move_string_position(delta: int):
+	file_check_position += delta
+	file_time_position_start += delta
+	file_time_position_end += delta

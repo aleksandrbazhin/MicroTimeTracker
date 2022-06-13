@@ -16,11 +16,11 @@ The "Micro" time tracker parses tasks in your markdown files, recognizing a tiny
 
 The following is recognized in a Markdown task file. Tasks are from github format.
 ```
-"\n# "     - task block (instead of \n there can be file start). 
+"# "       - task block, any level header in markdown. 
              All the tasks should ne in one of the task blocks.
 "\n- [ ] " - uncompleted task
 "\n- [x] " - completed task
-**(int:int:int)**\n - time spend on the task
+" **(int:int:int)**" - time spend on the task at the end of the task string
 
 ```
  Everything else you can use to format the files as you want. Such time tracking is not enforcing anything. You obviously can edit it anytime you want.

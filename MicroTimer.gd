@@ -34,6 +34,7 @@ onready var active_task_name_label := $MinimizedContainer/VBox/Header/Label
 
 onready var md_file: MdFile = preload("res://MarkdownFile.gd").new()
 
+
 func _ready():
 	get_tree().get_root().set_transparent_background(true)
 	OS.set_window_always_on_top(true)
@@ -55,6 +56,13 @@ func _process(_delta: float):
 		if elapsed_time - displayed_time > 1000:
 			display_time(elapsed_time)
 			displayed_time = elapsed_time
+			if active_task_ref != null:
+				var task: TaskRow = active_task_ref.get_ref()
+				var time_string_length_delta := md_file.update_task_time(task)
+				var task_index := all_tasks.find(task)
+				if time_string_length_delta > 0 and task_index != -1:
+					for i in range(task_index + 1, all_tasks.size()):
+						all_tasks[i].move_string_position(time_string_length_delta)
 
 
 func display_time(time: int):
