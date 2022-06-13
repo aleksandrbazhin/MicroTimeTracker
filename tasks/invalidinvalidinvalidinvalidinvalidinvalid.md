@@ -10,9 +10,9 @@
 
 
 
-# State saving
+### State saving
 
 - [x] Window position **(00:00:10)**
-- [x] Is task menu collapsed **(00:01:09)**
-- [x] Selected file **(00:00:16)**
+- [ ] Is task menu collapsed **(00:00:48)**
+- [ ] Selected file
 - [x] Selected task **(00:00:08)**

@@ -1,9 +1,9 @@
-extends VBoxContainer
+extends HBoxContainer
 
 
 const USER_SETTINGS_PATH := "user://settings.json"
 const NO_TASK_LABEL := "No task"
-const MINIMISED_WINDOW_SIZE := Vector2(220, 143)
+const MINIMISED_WINDOW_SIZE := Vector2(220, 145)
 const TASK_SELECT_WINDOW_SIZE := Vector2(220, 500)
 const FILE_DIALOG_WINDOW_SIZE := Vector2(700, 500)
 
@@ -20,17 +20,17 @@ var all_tasks := []
 var active_task_ref: WeakRef = null
 
 onready var minimised_window_position := OS.window_position
-onready var hour_label := $MinimizedContainer/VBox/Timer/Hour
-onready var minute_label := $MinimizedContainer/VBox/Timer/Minute
-onready var second_label := $MinimizedContainer/VBox/Timer/Second
-onready var start_button := $MinimizedContainer/VBox/Controls/StartButton
-onready var pause_button := $MinimizedContainer/VBox/Controls/PauseButton
-onready var complete_button := $MinimizedContainer/VBox/Controls/CompleteButton
-onready var task_container := $TasksContainer
-onready var task_scroll := $TasksContainer/VBox/ScrollContainer
-onready var task_hbox := $TasksContainer/VBox/ScrollContainer/Tasks
-onready var active_file_name := $TasksContainer/VBox/CurrentFIle/FileName
-onready var active_task_name_label := $MinimizedContainer/VBox/Header/Label
+onready var hour_label := $Content/VBox/Timer/Hour
+onready var minute_label := $Content/VBox/Timer/Minute
+onready var second_label := $Content/VBox/Timer/Second
+onready var start_button := $Content/VBox/Controls/StartButton
+onready var pause_button := $Content/VBox/Controls/PauseButton
+onready var complete_button := $Content/VBox/Controls/CompleteButton
+onready var task_container := $Content/TasksContainer
+onready var task_scroll := $Content/TasksContainer/VBox/ScrollContainer
+onready var task_hbox := $Content/TasksContainer/VBox/ScrollContainer/Tasks
+onready var active_file_name := $Content/TasksContainer/VBox/CurrentFIle/FileName
+onready var active_task_name_label := $Content/VBox/Header/Label
 
 onready var md_file: MdFile = preload("res://MarkdownFile.gd").new()
 
@@ -180,19 +180,21 @@ func _on_SelectFileButton_pressed():
 
 func set_task_container_visible(is_visible: bool, is_restoring: bool = false):
 	if is_visible:
+		$Content/VBox/Header/TasksButton.flip_v = true
 		if not is_restoring:
 			OS.window_position.y -= task_container.rect_size.y
-		$TasksContainer.show()
+		task_container.show()
 		OS.set_window_size(TASK_SELECT_WINDOW_SIZE)
 	else:
-		$TasksContainer.hide()
+		$Content/VBox/Header/TasksButton.flip_v = false
+		task_container.hide()
 		OS.set_window_size(MINIMISED_WINDOW_SIZE)
 		if not is_restoring:
 			OS.window_position.y += task_container.rect_size.y
 
 
 func _on_TasksButton_pressed():
-	set_task_container_visible(not $TasksContainer.visible)
+	set_task_container_visible(not task_container.visible)
 	save_settings()
 
 
