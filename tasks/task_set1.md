@@ -11,3 +11,4 @@
 - [ ] Use regex **(00:00:14)**
 - [ ] Parse task blocks
 - [x] Display list in UI
+- [x] Тест кириллицы **(00:00:07)**
