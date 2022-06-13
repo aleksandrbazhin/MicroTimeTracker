@@ -8,7 +8,8 @@
 # Parse tasks
 
 - [x] Read file **(00:00:19)**
-- [ ] Use regex **(00:00:14)**
-- [ ] Parse task blocks
+- [ ] Use regex **(00:00:20)**
+- [x] Parse task blocks **(00:00:08)**
 - [x] Display list in UI
 - [x] Тест кириллицы **(00:00:07)**
+- [x] Yjds

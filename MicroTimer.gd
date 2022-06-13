@@ -31,6 +31,9 @@ onready var task_scroll := $Content/TasksContainer/VBox/ScrollContainer
 onready var task_hbox := $Content/TasksContainer/VBox/ScrollContainer/Tasks
 onready var active_file_name := $Content/TasksContainer/VBox/CurrentFIle/FileName
 onready var active_task_name_label := $Content/VBox/Header/Label
+onready var desync_warning := $Content/TasksContainer/VBox/ColorRect
+onready var desync_warning_minimized := $Content/VBox/Header/TextureRect
+
 
 onready var md_file: MdFile = preload("res://MarkdownFile.gd").new()
 
@@ -41,6 +44,17 @@ func _ready():
 	start_time = OS.get_ticks_msec()
 	displayed_time = 0
 	load_settings()
+	md_file.connect("desync", self, "show_desync_warning")
+
+
+func show_desync_warning():
+	desync_warning.show()
+	desync_warning_minimized.show()
+
+
+func hide_desync_warning():
+	desync_warning.hide()
+	desync_warning_minimized.hide()
 
 
 func _process(_delta: float):
@@ -211,6 +225,7 @@ func _on_VBox_gui_input(event):
 
 
 func load_tasks_from_file(path: String):
+	hide_desync_warning()
 	for child in task_hbox.get_children():
 		task_hbox.remove_child(child)
 	all_tasks.clear()

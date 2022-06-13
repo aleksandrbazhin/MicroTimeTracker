@@ -1,14 +1,12 @@
 
 # UI tasks
 
-- [ ] Set up pretty buttons (make icons) **(01:05:29)**
+
+- [ ] Set up pretty buttons (make icons) **(01:05:34)**
 - [ ] Implement pause **(00:15:30)**
 - [x] Create header with the current task name
 - [x] Create menu for selecting files **(00:00:04)**
 - [x] Create file dialog for selecting markdown files **(00:00:43)**
-
-
-
 
 # State saving
 
