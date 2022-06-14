@@ -36,7 +36,6 @@ onready var active_task_name_label := $Content/VBox/Header/Label
 onready var desync_warning := $Content/TasksContainer/VBox/ColorRect
 onready var desync_warning_minimized := $Content/VBox/Header/TextureRect
 onready var reload_file_button := $Content/TasksContainer/VBox/CurrentFIle/ReloadFile
-onready var task_tooltip := $Spacer/ToolitipPanel
 
 onready var md_file: MdFile = preload("res://MarkdownFile.gd").new()
 
@@ -315,7 +314,6 @@ func set_active_task(task_node: TaskRow):
 #		complete_button.disabled = true
 		active_task_ref = null
 		active_task_name_label.text = NO_TASK_LABEL
-		task_tooltip.get_node("Label").text = NO_TASK_LABEL
 		accumulated_time = 0
 		displayed_time = 0
 		display_time(0)
@@ -324,7 +322,6 @@ func set_active_task(task_node: TaskRow):
 	active_task_ref = weakref(task_node)
 	start_time  = OS.get_ticks_msec() 
 	active_task_name_label.text = task_node.task_name
-	task_tooltip.get_node("Label").text = task_node.task_name
 	accumulated_time = task_node.time_spent
 	pause_start_time = 0
 	display_time(accumulated_time)
@@ -362,11 +359,3 @@ func _exit_tree():
 func _on_ReloadFile_pressed():
 	load_tasks_from_file(active_file_path)
 	set_active_task_by_name(active_task_name_label.text)
-
-
-func _on_Label_mouse_entered():
-	task_tooltip.show()
-
-
-func _on_Label_mouse_exited():
-	task_tooltip.hide()

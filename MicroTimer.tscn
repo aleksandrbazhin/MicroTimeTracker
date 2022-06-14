@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://MicroTimer.gd" type="Script" id=1]
 [ext_resource path="res://assets/MainTheme.tres" type="Theme" id=2]
@@ -16,7 +16,6 @@
 [ext_resource path="res://assets/arrow_drop_up_circle_hover.png" type="Texture" id=14]
 [ext_resource path="res://assets/Reload.png" type="Texture" id=15]
 [ext_resource path="res://assets/Warning.png" type="Texture" id=16]
-[ext_resource path="res://assets/FontSmall.tres" type="DynamicFont" id=17]
 
 [sub_resource type="StyleBoxFlat" id=3]
 content_margin_left = 6.0
@@ -344,29 +343,6 @@ texture_normal = ExtResource( 7 )
 texture_pressed = ExtResource( 12 )
 texture_hover = ExtResource( 9 )
 
-[node name="ToolitipPanel" type="Panel" parent="Spacer"]
-visible = false
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -216.0
-margin_top = -102.0
-margin_right = -14.0
-margin_bottom = -4.0
-rect_min_size = Vector2( 202, 98 )
-
-[node name="Label" type="Label" parent="Spacer/ToolitipPanel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 6.0
-margin_top = 6.0
-margin_right = -6.0
-margin_bottom = -6.0
-custom_fonts/font = ExtResource( 17 )
-autowrap = true
-clip_text = true
-
 [node name="FileDialog" type="FileDialog" parent="."]
 margin_right = 700.0
 margin_bottom = 500.0
@@ -387,8 +363,6 @@ current_path = "/home/alexander/GodotProjects/MicroTimer/"
 [connection signal="pressed" from="Content/TasksContainer/VBox/CurrentFIle/SelectFileButton" to="." method="_on_SelectFileButton_pressed"]
 [connection signal="pressed" from="Content/TasksContainer/VBox/CurrentFIle/ReloadFile" to="." method="_on_ReloadFile_pressed"]
 [connection signal="pressed" from="Content/VBox/Header/TasksButton" to="." method="_on_TasksButton_pressed"]
-[connection signal="mouse_entered" from="Content/VBox/Header/Label" to="." method="_on_Label_mouse_entered"]
-[connection signal="mouse_exited" from="Content/VBox/Header/Label" to="." method="_on_Label_mouse_exited"]
 [connection signal="pressed" from="Content/VBox/Controls/StartButton" to="." method="_on_StartButton_pressed"]
 [connection signal="pressed" from="Content/VBox/Controls/PauseButton" to="." method="_on_PauseButton_pressed"]
 [connection signal="pressed" from="Content/VBox/Controls/CompleteButton" to="." method="_on_CompleteButton_pressed"]
