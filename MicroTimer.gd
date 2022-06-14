@@ -281,6 +281,9 @@ func set_active_task_by_name(task_name: String):
 		if task.task_name == task_name:
 			set_active_task(task)
 			return
+	if not all_tasks.empty():
+		select_next_available_task(all_tasks.front())
+		return
 	set_active_task(null)
 
 
