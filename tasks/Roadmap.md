@@ -8,7 +8,7 @@
 - [x] Check overall start/pause/complete behavior **(00:00:02)**
 - [x] On Windows the program window can go out of the screen **(01:00:00)**
 - [x] On first start there is junk in the current task **(00:01:00)**
-- [ ] Disable reload button if no file selected / display "Load file" message
+- [x] Disable reload button if no file selected / display "Load file" message **(00:00:05)**
 
 ## Improvements (maybe sometime later)
 

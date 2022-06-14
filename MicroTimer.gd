@@ -35,7 +35,7 @@ onready var active_file_name := $Content/TasksContainer/VBox/CurrentFIle/FileNam
 onready var active_task_name_label := $Content/VBox/Header/Label
 onready var desync_warning := $Content/TasksContainer/VBox/ColorRect
 onready var desync_warning_minimized := $Content/VBox/Header/TextureRect
-
+onready var reload_file_button := $Content/TasksContainer/VBox/CurrentFIle/ReloadFile
 
 onready var md_file: MdFile = preload("res://MarkdownFile.gd").new()
 
@@ -265,6 +265,7 @@ func set_task_file(path: String):
 	active_file_name.text = active_file_path.get_file()
 	$FileDialog.set_current_path(active_file_path)
 	load_tasks_from_file(active_file_path)
+	reload_file_button.disabled = false
 
 
 func create_task_row(task: Dictionary) -> TaskRow:
