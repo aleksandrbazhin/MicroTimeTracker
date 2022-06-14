@@ -1,6 +1,8 @@
 # "Micro" time tracker
 
-(It's not micro, because there is no sane options for now to minimize Godot builds adequately.)
+(It's not that micro, because there is no sane options for me to to minimize Godot builds.)
+
+You can get builds here [https://aleksandrbazhin.itch.io/microtimetracker](https://aleksandrbazhin.itch.io/microtimetracker)
 
 ## Embedded task tracking
 
@@ -10,7 +12,7 @@ Need synchronization? - Use git.
 
 Need time tracker? - Well, here it is. 
 
-The "Micro" time tracker parses tasks in your markdown files, recognizing a tiny subset of Markdown. It appends time spent on each task into those same tiles.
+The "Micro" time tracker parses tasks in your markdown files, recognizing a tiny subset of Markdown. It appends time spent on each task into those same files.
 
 ## Example
 
