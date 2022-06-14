@@ -288,21 +288,19 @@ func set_active_task_by_name(task_name: String):
 
 
 func set_active_task(task_node: TaskRow):
+	start_button.disabled = false
+	is_running = false
+	pause_button.disabled = true
 	for t in all_tasks:
 		t.set_active(false)
 	if task_node == null:
-		start_button.disabled = false
-		is_running = false
-		pause_button.disabled = true
-		complete_button.disabled = true
-
+#		complete_button.disabled = true
 		active_task_ref = null
 		active_task_name_label.text = NO_TASK_LABEL
 		accumulated_time = 0
 		displayed_time = 0
 		display_time(0)
 		return
-
 	task_node.set_active(true)
 	active_task_ref = weakref(task_node)
 	start_time  = OS.get_ticks_msec() 
