@@ -7,10 +7,10 @@ const MINIMISED_WINDOW_SIZE := Vector2(220, 145)
 const TASK_SELECT_WINDOW_SIZE := Vector2(220, 500)
 const FILE_DIALOG_WINDOW_SIZE := Vector2(700, 500)
 
-var start_time: int
-var displayed_time: int
-var pause_start_time: int = 0
-var accumulated_time: int = 0
+var start_time: int = 0 # ticks from program start to pressed start button
+var displayed_time: int = 0 # time UI was when last updated
+var pause_start_time: int = 0 # ticks from program start to pressed pause button
+var accumulated_time: int = 0 # time spent on current task when it is loaded
 var is_running := false
 var is_dragging := false
 var drag_start_position: Vector2
@@ -66,7 +66,8 @@ func _process(_delta: float):
 	if Input.is_mouse_button_pressed(BUTTON_LEFT) and is_dragging:
 		drag_window(get_global_mouse_position() - drag_start_position)
 	if is_running:
-		var elapsed_time = accumulated_time + OS.get_ticks_msec() - start_time
+		var elapsed_time := OS.get_ticks_msec() - start_time
+		elapsed_time += accumulated_time
 		if elapsed_time - displayed_time > 1000:
 			display_time(elapsed_time)
 			displayed_time = elapsed_time
@@ -148,6 +149,7 @@ func toggle_drag(event:InputEventMouseButton):
 		else:
 			start_drag(event.global_position)
 
+
 # Fix for window drag (the proper way, I guess, would require fractional window and cursor positioning)
 func drag_window(drag_delta: Vector2):
 	if abs(drag_delta.x) <= 1:
@@ -167,11 +169,13 @@ func _on_StartButton_pressed():
 	pause_button.disabled = false
 	complete_button.disabled = false
 	start_button.disabled = true
-	if pause_start_time == 0:
-		start_time = OS.get_ticks_msec()
-	else:
-		start_time += OS.get_ticks_msec() - pause_start_time
+	
+	if pause_start_time != 0:
+		var pause_duration := OS.get_ticks_msec() - pause_start_time
+		start_time += pause_duration
 		pause_start_time = 0
+	else:
+		start_time = OS.get_ticks_msec()
 
 
 func _on_PauseButton_pressed():
@@ -286,6 +290,7 @@ func set_active_task(task_node: TaskRow):
 	if task_node == null:
 		active_task_ref = null
 		active_task_name_label.text = NO_TASK_LABEL
+		accumulated_time = 0
 		displayed_time = 0
 		display_time(0)
 		return
@@ -295,6 +300,7 @@ func set_active_task(task_node: TaskRow):
 	start_time  = OS.get_ticks_msec() 
 	active_task_name_label.text = task_node.task_name
 	accumulated_time = task_node.time_spent
+	pause_start_time = 0
 	display_time(accumulated_time)
 	displayed_time = accumulated_time
 	yield(VisualServer, "frame_post_draw")
