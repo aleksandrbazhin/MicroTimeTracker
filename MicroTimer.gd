@@ -288,14 +288,19 @@ func set_active_task(task_node: TaskRow):
 	for t in all_tasks:
 		t.set_active(false)
 	if task_node == null:
+		start_button.disabled = false
+		is_running = false
+		pause_button.disabled = true
+		complete_button.disabled = true
+
 		active_task_ref = null
 		active_task_name_label.text = NO_TASK_LABEL
 		accumulated_time = 0
 		displayed_time = 0
 		display_time(0)
 		return
-	task_node.set_active(true)
 
+	task_node.set_active(true)
 	active_task_ref = weakref(task_node)
 	start_time  = OS.get_ticks_msec() 
 	active_task_name_label.text = task_node.task_name
@@ -312,20 +317,12 @@ func set_active_task(task_node: TaskRow):
 
 
 func _on_CompleteButton_pressed():
-#	is_running = false
-#	pause_button.disabled = true
-#	complete_button.disabled = true
 	if active_task_ref != null:
 		var task_node: TaskRow = active_task_ref.get_ref()
 		task_node.set_completed(true)
 		select_next_available_task(task_node)
 	else:
-		start_button.disabled = false
-		is_running = false
-		pause_button.disabled = true
-		complete_button.disabled = true
-		displayed_time = 0
-		display_time(0)
+		set_active_task(null)
 
 
 func _on_FileDialog_file_selected(path: String):

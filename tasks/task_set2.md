@@ -4,8 +4,8 @@
 
 - [x] Set up pretty buttons (make icons) **(01:05:34)**
 - [x] Implement pause **(00:15:30)**
-- [x] Create header with the current task name
-- [x] Create menu for selecting files **(00:00:04)**
+- [x] Create header with the current task name **(00:00:01)**
+- [x] Create menu for selecting files **(00:00:06)**
 - [x] Create file dialog for selecting markdown files **(00:00:43)**
 
 # State saving
