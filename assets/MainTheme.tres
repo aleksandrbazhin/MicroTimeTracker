@@ -17,7 +17,7 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id=5]
-bg_color = Color( 0.278431, 0.352941, 0.419608, 0.623529 )
+bg_color = Color( 0.278431, 0.352941, 0.419608, 0.831373 )
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
@@ -41,7 +41,6 @@ corner_radius_bottom_left = 2
 [resource]
 default_font = ExtResource( 2 )
 Button/constants/hseparation = 0
-Button/fonts/font = ExtResource( 2 )
 Button/styles/disabled = SubResource( 7 )
 Button/styles/hover = SubResource( 4 )
 Button/styles/normal = SubResource( 5 )
@@ -50,4 +49,3 @@ CheckBox/styles/hover = SubResource( 9 )
 CheckBox/styles/hover_pressed = SubResource( 10 )
 CheckBox/styles/normal = SubResource( 11 )
 CheckBox/styles/pressed = SubResource( 12 )
-Label/fonts/font = ExtResource( 2 )

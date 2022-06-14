@@ -1,4 +1,4 @@
-extends HBoxContainer
+extends VBoxContainer
 
 class_name TaskRow
 
@@ -24,18 +24,19 @@ func convert_time(time_msec: int) -> String:
 
 func set_completed(new_is_completed: bool):
 	is_completed = new_is_completed
-	$Name.disabled = is_completed
-	$CheckBox.pressed = is_completed
+	$HBox/Name.disabled = is_completed
+	$HBox/CheckBox.pressed = is_completed
 
 
 func set_time_spent(new_time: int):
-	$Time.text = convert_time(new_time)
+	$HBox/Time.text = convert_time(new_time)
 	time_spent = new_time
 
 
 func set_name(new_name: String):
 	task_name = new_name
-	$Name.text = new_name
+	$HBox/Name.text = new_name
+	$FullText/Label.text = new_name
 
 
 func _on_CheckBox_toggled(button_pressed):
@@ -45,7 +46,7 @@ func _on_CheckBox_toggled(button_pressed):
 
 func _on_Name_gui_input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
-		if not $Name.disabled:
+		if not $HBox/Name.disabled:
 			emit_signal("selected")
 
 
@@ -55,7 +56,8 @@ func _on_CheckBox_gui_input(event):
 
 
 func set_active(is_active: bool):
-	$Control/ColorRect.visible = is_active
+	$HBox/Control/ColorRect.visible = is_active
+	$FullText.visible = is_active
 
 
 func from_dict(task_dict: Dictionary):

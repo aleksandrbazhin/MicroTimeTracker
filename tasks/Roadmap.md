@@ -18,7 +18,7 @@
 - [ ] Test for multiple monitor behavior and different resolution (currently only tested on 1920x1080)
 
 ### Features
-- [ ] Mouseover tooltips (at least full task text) **(00:00:04)**
+- [x] Mouseover tooltips (at least full task text) **(00:02:28)**
 - [ ] Dark / light / other themes
 
 ### User settings
