@@ -181,7 +181,6 @@ margin_right = 202.0
 margin_bottom = 27.0
 mouse_filter = 1
 size_flags_horizontal = 3
-text = "dafkljvclgbjk"
 clip_text = true
 
 [node name="TextureRect" type="TextureRect" parent="Content/VBox/Header"]

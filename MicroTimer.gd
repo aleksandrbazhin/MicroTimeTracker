@@ -2,6 +2,7 @@ extends HBoxContainer
 
 
 const USER_SETTINGS_PATH := "user://settings.json"
+#const MD_FILE_SAVE_INTERVAL_MS := 10000
 const NO_TASK_LABEL := "No task"
 const MINIMISED_WINDOW_SIZE := Vector2(220, 145)
 const TASK_SELECT_WINDOW_SIZE := Vector2(220, 500)
@@ -94,6 +95,7 @@ func display_time(time: int):
 func load_settings():
 	var file := File.new()
 	if file.open(USER_SETTINGS_PATH, File.READ) != OK:
+		active_task_name_label.text = NO_TASK_LABEL
 		return
 	var file_text := file.get_as_text()
 	file.close()
