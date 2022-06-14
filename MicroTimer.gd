@@ -7,6 +7,7 @@ const NO_TASK_LABEL := "No task"
 const MINIMISED_WINDOW_SIZE := Vector2(220, 145)
 const TASK_SELECT_WINDOW_SIZE := Vector2(220, 500)
 const FILE_DIALOG_WINDOW_SIZE := Vector2(700, 500)
+const TASK_CONTAINER_HEIGHT := 351 # dirty fix to not wait whilw the VisualServer recalculates it
 
 var start_time: int = 0 # ticks from program start to pressed start button
 var displayed_time: int = 0 # time UI was when last updated
@@ -108,7 +109,7 @@ func load_settings():
 
 func apply_settings():
 	if settings.has("window_position"):
-		OS.window_position = str2var(settings["window_position"])
+		move_window_to(str2var(settings["window_position"]))
 	if settings.has("recent_file"):
 		set_task_file(settings["recent_file"])
 		if settings.has("recent_task"):
@@ -152,6 +153,13 @@ func toggle_drag(event:InputEventMouseButton):
 			start_drag(event.global_position)
 
 
+func move_window_to(new_position: Vector2):
+	var screen_size := OS.get_screen_size()
+	new_position.x = clamp(new_position.x, 0, screen_size.x - OS.window_size.x)
+	new_position.y = clamp(new_position.y, 0, screen_size.y - OS.window_size.y)
+	OS.window_position = new_position
+
+
 # Fix for window drag (the proper way, I guess, would require fractional window and cursor positioning)
 func drag_window(drag_delta: Vector2):
 	if abs(drag_delta.x) <= 1:
@@ -159,7 +167,7 @@ func drag_window(drag_delta: Vector2):
 	if abs(drag_delta.y) <= 1:
 		drag_delta.y = 0
 	if (drag_delta.abs() > Vector2.ZERO):
-		OS.window_position += drag_delta
+		move_window_to(OS.window_position + drag_delta)
 
 
 func _on_CloseButton_pressed():
@@ -189,28 +197,34 @@ func _on_PauseButton_pressed():
 
 func _on_FileDialog_hide():
 	OS.set_window_size(TASK_SELECT_WINDOW_SIZE)
-	OS.window_position = minimised_window_position
+	move_window_to(minimised_window_position)
 
 
 func _on_SelectFileButton_pressed():
 	minimised_window_position = OS.window_position
 	$FileDialog.popup()
 	OS.set_window_size(FILE_DIALOG_WINDOW_SIZE)
+	move_window_to(minimised_window_position)
 
 
-func set_task_container_visible(is_visible: bool, is_restoring: bool = false):
-	if is_visible:
+func set_task_container_visible(is_setting_visible: bool, is_restoring: bool = false):
+	if is_setting_visible:
 		$Content/VBox/Header/TasksButton.flip_v = true
-		if not is_restoring:
-			OS.window_position.y -= task_container.rect_size.y
+		task_container.modulate = Color(0, 0, 0, 0)
 		task_container.show()
+		yield(VisualServer,"frame_post_draw")
+		if not is_restoring:
+			move_window_to(OS.window_position - Vector2(0, TASK_CONTAINER_HEIGHT))
+		task_container.modulate = Color(1, 1, 1, 1)
 		OS.set_window_size(TASK_SELECT_WINDOW_SIZE)
 	else:
 		$Content/VBox/Header/TasksButton.flip_v = false
-		task_container.hide()
+		task_container.modulate = Color(0, 0, 0, 0)
+		yield(VisualServer,"frame_post_draw")
 		OS.set_window_size(MINIMISED_WINDOW_SIZE)
 		if not is_restoring:
-			OS.window_position.y += task_container.rect_size.y
+			move_window_to(OS.window_position + Vector2(0, TASK_CONTAINER_HEIGHT))
+		task_container.hide()
 
 
 func _on_TasksButton_pressed():

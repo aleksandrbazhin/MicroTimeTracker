@@ -49,7 +49,8 @@ rect_min_size = Vector2( 0, 6 )
 visible = false
 margin_top = 6.0
 margin_right = 202.0
-margin_bottom = 58.0
+margin_bottom = 357.0
+rect_min_size = Vector2( 0, 351 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 2 )
@@ -59,7 +60,7 @@ custom_styles/panel = SubResource( 3 )
 margin_left = 6.0
 margin_top = 6.0
 margin_right = 196.0
-margin_bottom = 46.0
+margin_bottom = 345.0
 size_flags_vertical = 3
 
 [node name="CurrentFIle" type="HBoxContainer" parent="Content/TasksContainer/VBox"]
@@ -136,7 +137,7 @@ margin_bottom = 36.0
 [node name="ScrollContainer" type="ScrollContainer" parent="Content/TasksContainer/VBox"]
 margin_top = 40.0
 margin_right = 190.0
-margin_bottom = 40.0
+margin_bottom = 339.0
 mouse_filter = 1
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
@@ -150,6 +151,7 @@ custom_constants/separation = 8
 margin_top = 6.0
 margin_right = 202.0
 margin_bottom = 149.0
+size_flags_horizontal = 8
 
 [node name="Control" type="Control" parent="Content/VBox"]
 margin_right = 202.0
