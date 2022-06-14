@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   height="16"
+   viewBox="0 0 16 16"
+   width="16"
+   version="1.1"
+   id="svg34273"
+   sodipodi:docname="Warning.svg"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   inkscape:export-filename="/home/alexander/GodotProjects/MicroTimer/assets/Warning.png"
+   inkscape:export-xdpi="190.92703"
+   inkscape:export-ydpi="190.92703"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs34277">
+    <linearGradient
+       id="linearGradient40053"
+       inkscape:swatch="gradient">
+      <stop
+         style="stop-color:#ffd4c0;stop-opacity:1;"
+         offset="0"
+         id="stop40049" />
+      <stop
+         style="stop-color:#ffd4c0;stop-opacity:0;"
+         offset="1"
+         id="stop40051" />
+    </linearGradient>
+  </defs>
+  <sodipodi:namedview
+     id="namedview34275"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="8.639961"
+     inkscape:cx="-18.282899"
+     inkscape:cy="23.189311"
+     inkscape:window-width="1846"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg34273" />
+  <rect
+     style="opacity:0.676826;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#e98456;stroke-width:1.1;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="rect40724"
+     width="3.4128978"
+     height="9.7426109"
+     x="6.2833714"
+     y="4.065299" />
+  <path
+     d="m8.0293 2.002a1.0001 1.0001 0 0 0 -.88672.48438l-6 10a1.0001 1.0001 0 0 0 .85742 1.5137h12a1.0001 1.0001 0 0 0 .85742-1.5137l-6-10a1.0001 1.0001 0 0 0 -.82812-.48438zm-1.0293 2.998h2v5h-2zm0 6h2v2h-2z"
+     fill="#ffdd65"
+     fill-rule="evenodd"
+     id="path34271"
+     style="fill:#d34200;fill-opacity:1;stroke-width:1.1;stroke-miterlimit:4;stroke-dasharray:none;stroke:#e98456;stroke-opacity:1" />
+</svg>

@@ -1,132 +1,371 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://MicroTimer.gd" type="Script" id=1]
-[ext_resource path="res://Theme.tres" type="Theme" id=2]
+[ext_resource path="res://assets/MainTheme.tres" type="Theme" id=2]
+[ext_resource path="res://assets/pause.png" type="Texture" id=3]
+[ext_resource path="res://assets/done.png" type="Texture" id=4]
+[ext_resource path="res://assets/play_arrow.png" type="Texture" id=5]
+[ext_resource path="res://assets/FontStillBig.tres" type="DynamicFont" id=6]
+[ext_resource path="res://assets/cross.png" type="Texture" id=7]
+[ext_resource path="res://assets/FontTooBig.tres" type="DynamicFont" id=8]
+[ext_resource path="res://assets/cross_hover.png" type="Texture" id=9]
+[ext_resource path="res://assets/Load.png" type="Texture" id=10]
+[ext_resource path="res://assets/FileDialogTheme.tres" type="Theme" id=11]
+[ext_resource path="res://assets/cross_press.png" type="Texture" id=12]
+[ext_resource path="res://assets/arrow_drop_up_circle.png" type="Texture" id=13]
+[ext_resource path="res://assets/arrow_drop_up_circle_hover.png" type="Texture" id=14]
+[ext_resource path="res://assets/Reload.png" type="Texture" id=15]
+[ext_resource path="res://assets/Warning.png" type="Texture" id=16]
 
-[sub_resource type="StyleBoxEmpty" id=1]
+[sub_resource type="StyleBoxFlat" id=3]
+content_margin_left = 6.0
+content_margin_right = 6.0
+content_margin_top = 6.0
+content_margin_bottom = 6.0
+bg_color = Color( 0.137255, 0.121569, 0.121569, 0.827451 )
 
 [node name="MicroTimer" type="HBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = ExtResource( 2 )
+size_flags_vertical = 3
+custom_constants/separation = 0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [ -31.0 ]
+}
 
-[node name="Container" type="VBoxContainer" parent="."]
-margin_right = 172.0
-margin_bottom = 98.0
+[node name="Content" type="VBoxContainer" parent="."]
+margin_right = 202.0
+margin_bottom = 149.0
+theme = ExtResource( 2 )
+custom_constants/separation = 0
 
-[node name="Timer" type="HBoxContainer" parent="Container"]
-margin_right = 172.0
-margin_bottom = 54.0
+[node name="ExitContainer" type="Control" parent="Content"]
+margin_right = 202.0
+margin_bottom = 6.0
+rect_min_size = Vector2( 0, 6 )
+
+[node name="TasksContainer" type="PanelContainer" parent="Content"]
+visible = false
+margin_top = 6.0
+margin_right = 202.0
+margin_bottom = 357.0
+rect_min_size = Vector2( 0, 351 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 2 )
+custom_styles/panel = SubResource( 3 )
+
+[node name="VBox" type="VBoxContainer" parent="Content/TasksContainer"]
+margin_left = 6.0
+margin_top = 6.0
+margin_right = 196.0
+margin_bottom = 345.0
+size_flags_vertical = 3
+
+[node name="CurrentFIle" type="HBoxContainer" parent="Content/TasksContainer/VBox"]
+margin_right = 190.0
+margin_bottom = 28.0
+
+[node name="FileName" type="Label" parent="Content/TasksContainer/VBox/CurrentFIle"]
+margin_top = 4.0
+margin_right = 122.0
+margin_bottom = 23.0
+mouse_filter = 1
+size_flags_horizontal = 3
+text = "Select file"
+clip_text = true
+
+[node name="SelectFileButton" type="Button" parent="Content/TasksContainer/VBox/CurrentFIle"]
+margin_left = 126.0
+margin_right = 156.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 30, 28 )
+focus_mode = 0
+icon = ExtResource( 10 )
+
+[node name="ReloadFile" type="Button" parent="Content/TasksContainer/VBox/CurrentFIle"]
+margin_left = 160.0
+margin_right = 190.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 30, 28 )
+disabled = true
+icon = ExtResource( 15 )
+
+[node name="ColorRect" type="ColorRect" parent="Content/TasksContainer/VBox"]
+visible = false
+margin_top = 32.0
+margin_right = 190.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 48 )
+mouse_filter = 2
+color = Color( 0.509804, 0.290196, 0.290196, 1 )
+
+[node name="TextureRect" type="TextureRect" parent="Content/TasksContainer/VBox/ColorRect"]
+anchor_bottom = 1.0
+margin_right = 48.0
+texture = ExtResource( 16 )
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Content/TasksContainer/VBox/ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 21.0
+margin_top = 1.0
+margin_right = -1.0
+
+[node name="Label" type="Label" parent="Content/TasksContainer/VBox/ColorRect/VBoxContainer"]
+margin_right = 168.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 0, 22 )
+text = "Desync!"
+align = 1
+valign = 2
+
+[node name="Label2" type="Label" parent="Content/TasksContainer/VBox/ColorRect/VBoxContainer"]
+margin_top = 26.0
+margin_right = 168.0
+margin_bottom = 45.0
+text = "Reload file!"
+align = 1
+valign = 1
+
+[node name="HSeparator" type="HSeparator" parent="Content/TasksContainer/VBox"]
+margin_top = 32.0
+margin_right = 190.0
+margin_bottom = 36.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Content/TasksContainer/VBox"]
+margin_top = 40.0
+margin_right = 190.0
+margin_bottom = 339.0
+mouse_filter = 1
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="Tasks" type="VBoxContainer" parent="Content/TasksContainer/VBox/ScrollContainer"]
+margin_right = 190.0
+size_flags_horizontal = 3
+custom_constants/separation = 8
+
+[node name="VBox" type="VBoxContainer" parent="Content"]
+margin_top = 6.0
+margin_right = 202.0
+margin_bottom = 149.0
+size_flags_horizontal = 8
+
+[node name="Control" type="Control" parent="Content/VBox"]
+margin_right = 202.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 0, 2 )
+
+[node name="Header" type="HBoxContainer" parent="Content/VBox"]
+margin_top = 6.0
+margin_right = 202.0
+margin_bottom = 42.0
+custom_constants/separation = 8
+
+[node name="Spacer" type="Control" parent="Content/VBox/Header"]
+margin_bottom = 36.0
+
+[node name="TasksButton" type="TextureButton" parent="Content/VBox/Header"]
+margin_left = 8.0
+margin_right = 44.0
+margin_bottom = 36.0
+rect_min_size = Vector2( 36, 36 )
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 13 )
+texture_hover = ExtResource( 14 )
+
+[node name="Label" type="Label" parent="Content/VBox/Header"]
+margin_left = 52.0
+margin_right = 194.0
+margin_bottom = 36.0
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+valign = 1
+clip_text = true
+
+[node name="Spacer2" type="Control" parent="Content/VBox/Header"]
+margin_left = 202.0
+margin_right = 202.0
+margin_bottom = 36.0
+
+[node name="TextureRect" type="TextureRect" parent="Content/VBox/Header"]
+visible = false
+margin_left = 166.0
+margin_right = 202.0
+margin_bottom = 36.0
+rect_min_size = Vector2( 36, 36 )
+texture = ExtResource( 16 )
+stretch_mode = 4
+
+[node name="Timer" type="HBoxContainer" parent="Content/VBox"]
+margin_top = 46.0
+margin_right = 202.0
+margin_bottom = 87.0
 mouse_filter = 2
 size_flags_vertical = 3
 custom_constants/separation = 0
 
-[node name="Hour" type="Label" parent="Container/Timer"]
-margin_right = 44.0
-margin_bottom = 54.0
+[node name="Spacer" type="Control" parent="Content/VBox/Timer"]
+margin_right = 8.0
+margin_bottom = 41.0
+rect_min_size = Vector2( 8, 0 )
+
+[node name="Hour" type="Label" parent="Content/VBox/Timer"]
+margin_left = 8.0
+margin_right = 57.0
+margin_bottom = 41.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_fonts/font = ExtResource( 8 )
 text = "00"
 align = 1
-valign = 2
+valign = 1
 
-[node name="Semicolon" type="Label" parent="Container/Timer"]
-margin_left = 44.0
-margin_right = 63.0
-margin_bottom = 54.0
+[node name="Semicolon" type="Label" parent="Content/VBox/Timer"]
+margin_left = 57.0
+margin_right = 76.0
+margin_bottom = 41.0
 size_flags_vertical = 3
+custom_fonts/font = ExtResource( 8 )
 text = ":"
 align = 1
-valign = 2
+valign = 1
 
-[node name="Minute" type="Label" parent="Container/Timer"]
-margin_left = 63.0
-margin_right = 108.0
-margin_bottom = 54.0
+[node name="Minute" type="Label" parent="Content/VBox/Timer"]
+margin_left = 76.0
+margin_right = 125.0
+margin_bottom = 41.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_fonts/font = ExtResource( 8 )
 text = "00"
 align = 1
-valign = 2
+valign = 1
 
-[node name="Semicolon2" type="Label" parent="Container/Timer"]
-margin_left = 108.0
-margin_right = 127.0
-margin_bottom = 54.0
+[node name="Semicolon2" type="Label" parent="Content/VBox/Timer"]
+margin_left = 125.0
+margin_right = 144.0
+margin_bottom = 41.0
 size_flags_vertical = 3
+custom_fonts/font = ExtResource( 8 )
 text = ":"
 align = 1
-valign = 2
+valign = 1
 
-[node name="Second" type="Label" parent="Container/Timer"]
-margin_left = 127.0
-margin_right = 172.0
-margin_bottom = 54.0
+[node name="Second" type="Label" parent="Content/VBox/Timer"]
+margin_left = 144.0
+margin_right = 193.0
+margin_bottom = 41.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_fonts/font = ExtResource( 8 )
 text = "00"
 align = 1
-valign = 2
+valign = 1
 
-[node name="Controls" type="HBoxContainer" parent="Container"]
-margin_top = 58.0
-margin_right = 172.0
-margin_bottom = 94.0
+[node name="Spacer2" type="Control" parent="Content/VBox/Timer"]
+margin_left = 193.0
+margin_right = 201.0
+margin_bottom = 41.0
+rect_min_size = Vector2( 8, 0 )
 
-[node name="Spacer" type="Control" parent="Container/Controls"]
-margin_bottom = 36.0
+[node name="Controls" type="HBoxContainer" parent="Content/VBox"]
+margin_top = 91.0
+margin_right = 202.0
+margin_bottom = 139.0
+
+[node name="Spacer" type="Control" parent="Content/VBox/Controls"]
+margin_bottom = 48.0
 size_flags_horizontal = 3
 
-[node name="StartButton" type="Button" parent="Container/Controls"]
+[node name="StartButton" type="Button" parent="Content/VBox/Controls"]
 margin_left = 4.0
-margin_right = 84.0
-margin_bottom = 36.0
-rect_min_size = Vector2( 80, 36 )
-focus_mode = 0
+margin_right = 94.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 90, 36 )
+mouse_default_cursor_shape = 2
+custom_fonts/font = ExtResource( 6 )
 text = "Go!"
+icon = ExtResource( 5 )
+align = 0
 
-[node name="StopButton" type="Button" parent="Container/Controls"]
-margin_left = 88.0
-margin_right = 168.0
-margin_bottom = 36.0
-rect_min_size = Vector2( 80, 36 )
-focus_mode = 0
+[node name="PauseButton" type="Button" parent="Content/VBox/Controls"]
+margin_left = 98.0
+margin_right = 146.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 40, 40 )
+mouse_default_cursor_shape = 2
 disabled = true
-text = "Stop"
+icon = ExtResource( 3 )
 
-[node name="Spacer2" type="Control" parent="Container/Controls"]
-margin_left = 172.0
-margin_right = 172.0
-margin_bottom = 36.0
+[node name="CompleteButton" type="Button" parent="Content/VBox/Controls"]
+margin_left = 150.0
+margin_right = 198.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 48, 48 )
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+icon = ExtResource( 4 )
+
+[node name="Spacer2" type="Control" parent="Content/VBox/Controls"]
+margin_left = 202.0
+margin_right = 202.0
+margin_bottom = 48.0
 size_flags_horizontal = 3
 
-[node name="Spacer" type="Control" parent="Container"]
-margin_top = 98.0
-margin_right = 172.0
-margin_bottom = 98.0
+[node name="Spacer" type="Control" parent="Content/VBox"]
+margin_top = 143.0
+margin_right = 202.0
+margin_bottom = 143.0
 size_flags_horizontal = 3
 
 [node name="Spacer" type="Control" parent="."]
-margin_left = 176.0
-margin_right = 190.0
-margin_bottom = 98.0
+margin_left = 202.0
+margin_right = 216.0
+margin_bottom = 149.0
 rect_min_size = Vector2( 14, 0 )
 
-[node name="CloseButton" type="Button" parent="Spacer"]
+[node name="CloseButton" type="TextureButton" parent="Spacer"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -22.0
-margin_top = 2.0
-margin_right = -2.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 20, 0 )
-focus_mode = 0
+margin_left = -20.0
+margin_top = 1.0
+margin_right = 4.0
+margin_bottom = 25.0
+mouse_default_cursor_shape = 2
 size_flags_horizontal = 8
-custom_styles/normal = SubResource( 1 )
-text = "×"
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 12 )
+texture_hover = ExtResource( 9 )
+
+[node name="FileDialog" type="FileDialog" parent="."]
+margin_right = 700.0
+margin_bottom = 500.0
+rect_min_size = Vector2( 700, 500 )
+theme = ExtResource( 11 )
+popup_exclusive = true
+window_title = "Open a File"
+dialog_hide_on_ok = true
+dialog_autowrap = true
+mode = 0
+access = 2
+filters = PoolStringArray( "*.md; Markdown" )
+current_dir = "/home/alexander/GodotProjects/MicroTimer"
+current_path = "/home/alexander/GodotProjects/MicroTimer/"
 
 [connection signal="gui_input" from="." to="." method="_on_MicroTimer_gui_input"]
-[connection signal="pressed" from="Container/Controls/StartButton" to="." method="_on_StartButton_pressed"]
-[connection signal="pressed" from="Container/Controls/StopButton" to="." method="_on_StopButton_pressed"]
+[connection signal="gui_input" from="Content/TasksContainer" to="." method="_on_TasksContainer_gui_input"]
+[connection signal="pressed" from="Content/TasksContainer/VBox/CurrentFIle/SelectFileButton" to="." method="_on_SelectFileButton_pressed"]
+[connection signal="pressed" from="Content/TasksContainer/VBox/CurrentFIle/ReloadFile" to="." method="_on_ReloadFile_pressed"]
+[connection signal="pressed" from="Content/VBox/Header/TasksButton" to="." method="_on_TasksButton_pressed"]
+[connection signal="pressed" from="Content/VBox/Controls/StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="Content/VBox/Controls/PauseButton" to="." method="_on_PauseButton_pressed"]
+[connection signal="pressed" from="Content/VBox/Controls/CompleteButton" to="." method="_on_CompleteButton_pressed"]
 [connection signal="pressed" from="Spacer/CloseButton" to="." method="_on_CloseButton_pressed"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_FileDialog_file_selected"]
+[connection signal="hide" from="FileDialog" to="." method="_on_FileDialog_hide"]

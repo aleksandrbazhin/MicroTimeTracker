@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   height="16"
+   viewBox="0 0 16 16"
+   width="16"
+   version="1.1"
+   id="svg4"
+   sodipodi:docname="Load.svg"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   inkscape:export-filename="/home/alexander/GodotProjects/MicroTimer/assets/Load.png"
+   inkscape:export-xdpi="144"
+   inkscape:export-ydpi="144"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     id="namedview6"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="24.4375"
+     inkscape:cx="-2.8439898"
+     inkscape:cy="11.764706"
+     inkscape:window-width="1846"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4" />
+  <path
+     d="m 6.4146973,3.4818971 c -0.7845155,0 -1.4204518,0.6359362 -1.4204518,1.4204518 v 6.3920331 c 0,0.784516 0.6359576,1.420452 1.4204518,1.420452 H 12.80673 c 0.784516,0 1.291476,-0.646611 1.420453,-1.420452 l 0.710226,-4.2613554 c 0.0028,-0.1303549 -0.03029,-0.2423291 -0.09572,-0.355113 C 14.714923,6.4583402 14.480719,6.3229995 14.227183,6.3228007 H 8.545375 C 8.291839,6.3230012 8.057635,6.4583402 7.9308663,6.6779136 7.8654413,6.7906975 7.8323293,6.9193194 7.8351493,7.0496743 L 7.1249232,11.294411 c -0.064733,0.386881 -0.3179823,0.710226 -0.7102259,0.710226 -0.3922436,0 -0.7102259,-0.317969 -0.7102259,-0.710226 V 4.9023773 c 0,-0.3922578 0.3179823,-0.7102259 0.7102259,-0.7102259 h 1.4204518 c 0.3922439,0 0.7102259,0.3179681 0.7102259,0.7102259 a 0.7102259,0.7102259 0 0 0 0.208075,0.502151 0.7102259,0.7102259 0 0 0 0.502151,0.2080749 h 2.840904 0.710225 A 0.7102259,0.7102259 0 0 0 12.598656,5.1104522 0.7102259,0.7102259 0 0 0 12.096505,4.9023773 H 9.255601 c 0,-0.7845156 -0.635958,-1.4204518 -1.4204519,-1.4204518 H 6.4146973 Z"
+     fill="#e0e0e0"
+     id="path2"
+     style="stroke-width:0.710226" />
+</svg>
