@@ -229,6 +229,8 @@ func set_task_container_visible(is_setting_visible: bool, is_restoring: bool = f
 
 func _on_TasksButton_pressed():
 	set_task_container_visible(not task_container.visible)
+	if active_task_ref != null:
+		scroll_to_active_task(active_task_ref.get_ref())
 	save_settings()
 
 
@@ -327,6 +329,10 @@ func set_active_task(task_node: TaskRow):
 	display_time(accumulated_time)
 	displayed_time = accumulated_time
 	yield(VisualServer, "frame_post_draw")
+	scroll_to_active_task(task_node)
+
+
+func scroll_to_active_task(task_node: TaskRow):
 	if task_scroll.scroll_vertical > task_node.rect_position.y:
 		task_scroll.scroll_vertical = task_node.rect_position.y - 4
 	var task_bottom: int = int(task_node.rect_position.y + task_node.rect_size.y) + 4
